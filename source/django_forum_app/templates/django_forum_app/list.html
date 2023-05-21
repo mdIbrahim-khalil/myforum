@@ -1,0 +1,47 @@
+{% extends 'layouts/default/page.html' %}
+{% load bootstrap4 %}
+{% load i18n %}
+{% load forum_tags %}
+{% block content %}
+
+
+<!-- Forums  -->
+<div class="post" style="border: 1px solid grey; padding:25px; box-shadow: 10px 10px 10px rgba(0,0,0,0.4); margin-bottom: 15px; border-radius:20px; background-color: white;">
+<div id="list">
+    {% for cat in categories %}
+    <div style="font-size: x-large;">{{cat.title}}</div>
+    
+    <table class="table table-striped custab" style="font-size: 14px; margin-top:10px; margin-bottom: 10px;" id=forum>
+        <tr>
+            <th></th>
+            <th>{% trans 'Forum' %}</th>
+            <th>{% trans 'Posts' %}</th>
+            <th>{% trans 'Last post' %}</th>
+            <th>{% trans 'Visits' %}</th>
+            <th></th>
+            
+        </tr>
+        {% for forum in cat.get_forums %}
+            <tr>
+                <td {% if forloop.last %}class="last"{% endif %}>
+                    <div class="title"> <a href="{% url 'forum:forum-detail' forum.slug %}"><img src="{{ forum.icon.get_thumbnail_url }}" > </a></div>
+                </td>
+                <td {% if forloop.last %}class="last"{% endif %}>
+                    <div class="title"> <a href="{% url 'forum:forum-detail' forum.slug %}">{{ forum.title }}</a></div>
+                </td>
+                <td {% if forloop.last %}class="last"{% endif %}>{{ forum.num_posts }}</td>
+                <td {% if forloop.last %}class="last"{% endif %}>
+                    {{ forum.last_post.short|linebreaksbr }}</td>
+                <td {% if forloop.last %}class="last"{% endif %}>{{forum.get_visits}}</td>
+                <td>
+                    {% if not forum|check_seen:user %}
+                        <strong class="text-success"><span aria-hidden="true" class="glyphicon glyphicon-star-empty"></span> {% trans 'NEW' %}</strong>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

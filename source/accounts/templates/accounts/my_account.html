@@ -1,0 +1,21 @@
+{% extends 'layouts/default/page.html' %}
+{% load i18n %}
+{% block content %}
+
+<div style="font-size: large ; font-weight: bold; padding :10px">My Account</div>
+<div style="padding : 10px;">
+            
+        <div style="padding :10px">To change your password <a  href="{% url 'accounts:change_password' %}">{% trans 'click here' %}</a>.</div>
+        
+        <div style="padding :10px">To change your profile name <a  href="{% url 'accounts:change_profile' %}">{% trans 'click here' %}</a>.</div>
+        
+        <div style="padding :10px">To change your email address <a  href="{% url 'accounts:change_email' %}">{% trans 'click here' %}</a>.</div>
+
+         <div style="padding :10px">To cancel your subscription <a  href="{% url 'accounts:cancel_subscription' %}">{% trans 'click here' %}</a>.</div>
+        
+    <!--  <div style="padding :10px">To change the language <a  href="{% url 'change_language' %}">{% trans 'click here' %}</a></div>-->  
+        
+        <div style="padding :10px">For any other assistance, you can write to us on <a href="#">contact@sharefuzz.com</a></div>
+</div>
+
+{% endblock %}

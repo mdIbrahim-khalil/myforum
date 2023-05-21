@@ -1,0 +1,35 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load i18n %}
+
+{% block content %}
+
+    {% if request.user.is_authenticated %}
+
+        {% trans 'Your username is' %} <b>{{ request.user.username }}</b>.
+
+    {% else %}
+
+        {% trans 'You are a guest.' %}
+
+    {% endif %}
+
+<a href="/fincore/getprices">fetch prices</a><br>
+<a href="/fincore/getincomestatement">fetch income statement</a><br>
+<a href="/fincore/getbalancesheet">fetch Balance sheet</a><br>
+<a href="/fincore/getcashflow">fetch cash flow</a><br>
+<a href="/fincore/getcompanydetails">fetch company details</a><br>
+<a href="/fincore/gettearsheet">generate tearsheet</a><br>
+<a href="/fincore/getcompanyfdb?symbol=MMM">fetch company details from database</a><br>
+
+<form action="/fincore/getcompanyfdb" method="get">
+<input type="text" name="symbol" id = "symbol">
+    <input type="submit" value="Go">
+</form>
+
+<form action="/fincore/getcompanyfdb" method="get">
+<input type="text" name="symbol" id = "">
+    <input type="submit" value="Go">
+</form>
+
+{% endblock %}

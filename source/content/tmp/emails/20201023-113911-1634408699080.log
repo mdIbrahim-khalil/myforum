@@ -1,0 +1,53 @@
+Content-Type: multipart/alternative;
+ boundary="===============2802159349902154185=="
+MIME-Version: 1.0
+Subject: Profile activation
+From: test@example.com
+To: neilarmstrong@gmail.com
+Date: Fri, 23 Oct 2020 06:09:11 -0000
+Message-ID: <160343335151.3356.9198410946346955438@LAPTOP-M79RDHCC>
+
+--===============2802159349902154185==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+
+To activate your profile, please follow this link:
+
+http://127.0.0.1:8000/accounts/activate/YhdT97G2dj8nuHPINIjw/
+
+--===============2802159349902154185==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Profile activation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+
+<p>
+    To activate your profile, please follow this link:
+</p>
+
+<p>
+    <a href="http://127.0.0.1:8000/accounts/activate/YhdT97G2dj8nuHPINIjw/">http://127.0.0.1:8000/accounts/activate/YhdT97G2dj8nuHPINIjw/</a>
+</p>
+
+</body>
+
+</html>
+
+--===============2802159349902154185==--
+
+-------------------------------------------------------------------------------

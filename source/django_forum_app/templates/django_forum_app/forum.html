@@ -1,0 +1,79 @@
+{% extends 'layouts/default/page.html' %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+<!-- Threads  -->
+<div class="container w-100">
+<div class="post" style="border: 1px solid grey; padding:15px; box-shadow: 10px 10px 10px rgba(0,0,0,0.4); margin-bottom: 15px; border-radius:20px; background-color: white;">
+<div>
+<span style="font-size: large; font-weight: bold;">{{forum.title}} </span>
+<span style="float: right;"><a id="new_topic" class="btn btn-primary" href="{% url 'forum:new-topic' forum.slug %}">{% trans 'Start New Topic' %}</a>
+</span>
+</div>
+{% if not topics %}
+<div style="border-radius: 10px; margin:20px; padding: 10px; background-color: lightgrey; font-size: small;">
+There are not topics yet in this Forum. If you would like to create one, use the "Start New Topic" button above.
+Please make sure your topic is relevant to the Forum.
+<br><br>
+<b>Important Guidelines :</b>
+<ul>
+    <li>Make sure your topic does not spread hateful speech against anyone</li>
+    <li>Ensure that your topic does not contain obscenity or indecency in any form</li>
+    <li>Your topic should be relevant the Forum in which you're creating it</li>
+    </ul>
+</div>
+{% endif %}
+
+{% if topics %}
+<div id="list" style="overflow-x: auto;
+    width: 100%;">
+<table border="0" cellpadding="2" style="font-size: 12px;" class="table table-striped custab">
+    <thead>
+    <tr>
+        <th>{% trans 'Topics' %}</th>
+        <th>{% trans 'Replies' %}</th>
+        <th>{% trans 'Last post' %}</th>
+        <td>{% trans 'Action' %}</td>
+    </tr>
+    </thead>
+
+    {% for topic in topics %}
+    <tbody>
+    <tr>
+        <td {% if forloop.last %}class="last"{% endif %}>
+        <div class="title"> <a href="{% url 'forum:topic-detail' forum.slug topic.pk %}">{{ topic.title }}</a>
+            </div></td>
+        <td {% if forloop.last %}class="last"{% endif %}>{{ topic.num_replies }}</td>
+        <td {% if forloop.last %}class="last"{% endif %}>
+            {{ topic.last_post.short|linebreaksbr }}</td>
+        <td {% if forloop.last %}class="last"{% endif %}>
+            <a class="button" href="{% url 'forum:topic-detail' forum.slug topic.pk %}">{% trans 'View' %}</a>
+        </td>
+    </tr>
+</tbody>
+    {% endfor %}
+</table>
+</div>
+{% endif %}
+<!-- Next/Prev page links  -->
+{% if topics and topics.paginator.num_pages > 1 %}
+<div class="pagination">
+    <span class="step-links">
+        {% if topics.has_previous %}
+            <a href= "?page={{ topics.previous_page_number }}">{% trans 'previous &lt;&lt;' %} </a>
+        {% endif %}
+
+        <span class="current">
+            &nbsp;{% trans 'Page' %} {{ topics.number }} of {{ topics.paginator.num_pages }}
+        </span>
+
+        {% if topics.has_next %}
+            <a href="?page={{ topics.next_page_number }}"> {% trans '&gt;&gt; next' %}</a>
+        {% endif %}
+    </span>
+</div>
+</div>
+    </div>
+{% endif %}
+{% endblock %}

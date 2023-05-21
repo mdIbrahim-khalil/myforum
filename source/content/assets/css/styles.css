@@ -1,0 +1,177 @@
+/* Hi there */
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+.tabs {
+  max-width: 1000px;
+  /*margin: 0 auto;*/
+  padding: 0 20px;
+}
+#tab-button {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#tab-button li {
+  display: table-cell;
+  width: 20%;
+}
+#tab-button li a {
+  display: block;
+  padding: .5em;
+  background: #eee;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #000;
+  text-decoration: none;
+}
+#tab-button li:not(:first-child) a {
+  border-left: none;
+}
+#tab-button li a:hover,
+#tab-button .is-active a {
+  border-bottom-color: transparent;
+  background: #fff;
+}
+.tab-contents {
+  padding: .5em 2em 1em;
+  border: 1px solid #ddd;
+}
+
+
+
+.tab-button-outer {
+  display: none;
+}
+.tab-contents {
+  margin-top: 20px;
+}
+@media screen and (min-width: 768px) {
+  .tab-button-outer {
+    position: relative;
+    z-index: 2;
+    display: block;
+  }
+  .tab-select-outer {
+    display: none;
+  }
+  .tab-contents {
+    position: relative;
+    top: -1px;
+    margin-top: 0;
+  }
+}
+/* end tabs css */
+
+/* start table css */
+.custab{
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5% 0;
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+    }
+.custab:hover{
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+    }
+
+/* table end css */
+
+
+.tagblock{
+	width: fit-content;
+	border: 1px solid grey;
+	background-color: lightgrey;
+	border-radius: 10px;
+	padding: 5px;
+	margin: 5px;
+	display: inline-block;
+}
+
+.closetag{
+	color: darkgrey;
+	margin-left:10px;
+}
+
+.ui-autocomplete {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: default;
+    background-color:#fff;
+    border: 1px solid #aaaaaa;
+    max-height: 400px;
+
+    overflow-y: auto;   /* prevent horizontal scrollbar */
+    overflow-x: hidden; /* add padding to account for vertical scrollbar */
+    z-index:1000 !important;
+}
+
+ul.ui-autocomplete {
+    list-style: none;
+    list-style-type: none;
+    padding: 5px;
+    margin: 0px;
+}
+
+.ui-helper-hidden-accessible { display:none; }
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover,
+.ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+
+}
+
+#user_avatar {
+	display:block; margin:0 auto; 
+}
+
+/* Handled unwanted black outline */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus {
+outline: none !important;
+}
+
+/* Navbar styles */
+.navbar.bg-dark ul li a:hover,
+.navbar.bg-dark ul li a:visited,
+.navbar.bg-dark ul li a:focus,
+.navbar.bg-dark ul li a:active{
+  background: none;
+}
+
+#bs-example-navbar-collapse-1{
+  margin: 2px;
+}
+
+.navbar.bg-dark .dropdown-menu .a{
+  background: red!important;
+}
+
+.navbar.bg-dark .dropdown-item{
+  background-color: white;
+}
+
+.navbar.bg-dark .dropdown-item:hover{
+  background-color: silver;
+  color: black;
+}
+
+.invalid-feedback{
+  color:red;
+  font-weight:bold;
+
+}
+
+.uploadedImageClass{
+  max-width: 100%;
+  object-fit: contain;
+  
+  }

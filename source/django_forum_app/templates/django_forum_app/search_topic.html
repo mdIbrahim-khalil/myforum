@@ -1,0 +1,61 @@
+{% extends 'layouts/default/page.html' %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+<!-- Threads  -->
+<div class="post" style="border: 1px solid grey; padding:25px; box-shadow: 10px 10px 10px rgba(0,0,0,0.4); margin-bottom: 15px; border-radius:20px; background-color: white;">
+<div>
+<span style="font-size: large; font-weight: bold;"> Search results for "{{keyword}}" </span>
+</div>
+<div id="list">
+<table border="0" cellpadding="4" width="100%" class="table table-striped custab">
+    
+    {% if topics %}
+    <tr>
+        <th>{% trans 'Topics' %}</th>
+        <th>{% trans 'Replies' %}</th>
+        <th>{% trans 'Last post' %}</th>
+    </tr>
+
+    {% for topic in topics %}
+    <tr>
+        <td {% if forloop.last %}class="last"{% endif %}>
+        <div class="title"> <a href="{% url 'django_forum_app:topic-detail' slug=topic.forum.slug topic_id=topic.id %}">{{ topic.title }}</a> 
+            </div></td>
+        <td {% if forloop.last %}class="last"{% endif %}>{{ topic.num_replies }}</td>
+        <td {% if forloop.last %}class="last"{% endif %}>
+            {{ topic.last_post.short|linebreaksbr }}</td>
+
+    </tr>
+
+    {% endfor %}
+
+    {% else %}
+
+    <p style="margin-top: 20px;">No Results found. Please try again with another keywords.</p>
+
+    {% endif %}
+</table>
+</div>
+
+<!-- Next/Prev page links  -->
+{% if topics and topics.paginator.num_pages > 1 %}
+<div class="pagination">
+    <span class="step-links">
+        {% if topics.has_previous %}
+            <a href= "?page={{ topics.previous_page_number }}">{% trans 'previous &lt;&lt;' %} </a>
+        {% endif %}
+
+        <span class="current">
+            &nbsp;{% trans 'Page' %} {{ topics.number }} of {{ topics.paginator.num_pages }}
+        </span>
+
+        {% if topics.has_next %}
+            <a href="?page={{ topics.next_page_number }}"> {% trans '&gt;&gt; next' %}</a>
+        {% endif %}
+    </span>
+</div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'layouts/default/page.html' %}
+{% load i18n %}
+{% load notification_tags %}
+
+{% block content %}
+<div class="container">
+    <h3>{% trans "Notifications" %}</h3>
+<span style="display: ruby">
+    <button class="mark-all-notifications btn btn-info" data-mark-action="read">{% trans "Mark all as read" %}</button>
+    <button class="mark-all-notifications btn btn-info" data-mark-action="unread">{% trans "Mark all as unread" %}</button>
+</span>
+<hr>
+<hr>
+<div class="notification-box-list list-unstyled">
+    <!-- Notifications will be rendered here -->
+    {% render_notifications using request.user.notifications.active %}
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'layouts/default/page.html' %}
+{% load i18n %}
+{% block content %}
+{% load avatar_tags %}
+<div class="post" style="border: 1px solid grey; padding:25px; box-shadow: 10px 10px 10px rgba(0,0,0,0.4); margin-bottom: 15px; border-radius:20px; background-color: white; width: 100%">
+    <table style="width: 100%; font-size: 14px;" >
+        <tr>
+            <td style="text-align: center;">
+                <div>
+                    <a href="{% url 'avatar_change' %}">{% avatar user 100 class="img-circle img-responsive" id="user_avatar" %}</a>
+                   <div><a href="#">@{{ request.user.username }}</a></div> 
+                </div>
+            </td>               
+                <tr>
+                    <td>
+                      <div style="font-weight: bold;">  Welcome to Sharefuzz! </div>
+
+                      <ul>
+                        <li>To change your profile picture, click <a href="/avatar/change">here</a></li>
+                        <li>Browse around the forum by clicking <a href="/forum">here</a></li>
+                        <li>Search for any topic using the search bar in the top panel</li>
+                      </ul>
+                    </td>
+                </tr>
+                <tr>
+                <td>
+                    Click <a href="/forum">here</a> to visit the forum. Have fun!
+                </td>
+            </tr>
+            </tr>
+        </tr>
+    </table>
+</div>
+{% endblock %}

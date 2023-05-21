@@ -1,0 +1,10 @@
+{% extends 'layouts/default/page.html' %}
+{% load i18n %}
+{% block content %}
+{% load avatar_tags %}
+<div class="post" style="border: 1px solid grey; padding:25px; box-shadow: 10px 10px 10px rgba(0,0,0,0.4); margin-bottom: 15px; border-radius:20px; background-color: white; width: 100%">
+    <h3>Successfully paid for {{ activation.subscription_type.name }} subscription</h3>
+    it is valid till {{activation.paid_until}}
+    <a href="/forum/fresh">Redirect to the home page</a>
+</div>
+{% endblock %}

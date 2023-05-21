@@ -1,0 +1,13 @@
+{% extends 'layouts/default/page.html' %}
+{% load bootstrap4 %}
+{% load i18n %}
+{% load avatar_tags %}
+{% load forum_tags %}
+{% block content %}
+
+
+<p>You are not authorised for requested action.</p>
+<a class='btn btn-primary' href="{% url 'django_forum_app:topic-detail' slug=forum_slug topic_id=topic_id %}">Go Back</a>
+
+
+{% endblock %}

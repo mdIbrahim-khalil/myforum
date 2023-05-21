@@ -1,0 +1,20 @@
+{% extends 'layouts/default/page.html' %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+    <h4>{% trans 'Cancel Subscription' %}</h4>
+
+    <p>Are you sure you want to cancel your subscription?</p>
+
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Cancel Subscription</button>
+      </form>
+
+{% endblock %}
+
+

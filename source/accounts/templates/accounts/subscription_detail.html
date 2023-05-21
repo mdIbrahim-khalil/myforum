@@ -1,0 +1,51 @@
+{% extends 'layouts/default/page.html' %}
+{% load i18n %}
+{% block content %}
+{% load avatar_tags %}
+<div class="title-big pb-3 mb-3" style="text-align:center">
+    <h2>Subscription plans</h2>
+    <p class="description-p text-muted pe-0 pe-lg-0">Select the desired plan and get access to exclusive content</p>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <div class="row">
+ {% for subscription in subscriptions %}
+<!--        <div class="row">-->
+    <div class="col mb-8" style="padding-bottom:50px">
+
+        <div class="card h-100">
+            <div class="card-header">
+                <h3 class="fw-bolder" style="font-weight: 700; text-align: center;">{{ subscription.name }}</h3>
+            </div>
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <span class="text-decoration-line-through" style="font-weight: 400">INR {{ subscription.cost }}</span>
+                </div>
+
+
+
+                <h4 style="text-align: left; font-weight: 600; padding-left: 12px" class="mt-5">Features</h4>
+                <ul>
+                {% for feature in subscription.feature_list %}
+                <li style="list-style-type: circle;"  style="text-align: center ">{{ feature }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+
+               <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                  <div class="text-center"><a class="btn btn-primary btn-rounded" href="/accounts/checkout/{{ subscription.id }}/"> Buy Now</a></div>
+               </div>
+
+
+        </div>
+
+    </div>
+<!--            </div>-->
+
+    {% endfor %}
+        </div>
+
+    </div>
+  </nav>
+
+{% endblock %}

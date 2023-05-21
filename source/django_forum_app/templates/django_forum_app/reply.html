@@ -1,0 +1,13 @@
+{% extends 'layouts/default/page.html' %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+<div style="box-shadow: 10px 10px 10px rgba(0,0,0,0.4); border: 1px solid grey;  padding:15px;">
+<form action="{% url 'forum:reply' forum.slug topic.id %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+</div>
+{% endblock %}
