@@ -7,9 +7,9 @@
 
 {% block content %}
 <!-- Posts  -->
-<div style="margin: 5px; padding: 4%; display: flow-root; ">
+<!-- <div style="margin: 5px; padding: 4%; display: flow-root; ">
     <span class="title" style="font-size: x-large; float:left; font-weight: bold; ">New Posts</span>
-</div>
+</div> -->
 <div id="list" style="width: 100% ">
     {% for post in posts %}
         {% if not is_paid_user and post.is_paid %}

@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 import os
 import warnings
 from os.path import dirname
@@ -30,7 +31,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    
+
+    # google auth
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
 
     # Vendor apps
     'bootstrap4',
@@ -46,11 +52,11 @@ INSTALLED_APPS = [
     'avatar',
     'flag',
     'notify',
-    
-    
+
+
 ]
 
-#TINYMCE_JS_URL = 'http://tinymce.moxiecode.com/js/tinymce/jscripts/tiny_mce/tiny_mce.js'
+# TINYMCE_JS_URL = 'http://tinymce.moxiecode.com/js/tinymce/jscripts/tiny_mce/tiny_mce.js'
 TINYMCE_JS_ROOT = os.path.join(CONTENT_DIR, 'static/vendor/tinymce')
 TINYMCE_JS_URL = os.path.join(TINYMCE_JS_ROOT, "tinymce.min.js")
 
@@ -74,10 +80,9 @@ RECAPTCHA_PUBLIC_KEY = '6LeZd9kZAAAAAOkzaVVfV4qAhr7p2HwFUlhLQc4w'
 RECAPTCHA_PRIVATE_KEY = '6LeZd9kZAAAAANpAdxal24uWdqXK_EGZNsVG2Xp2'
 
 
-
 MIDDLEWARE = [
     'downtime.middleware.DowntimeMiddleware',
-    
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -87,6 +92,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
 
 ROOT_URLCONF = 'app.urls'
 
@@ -99,7 +109,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                
+
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -112,16 +122,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'app.wsgi.application'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_FILE_PATH = os.path.join(CONTENT_DIR, 'tmp/emails')
 EMAIL_HOST_USER = 'test@example.com'
 DEFAULT_FROM_EMAIL = 'test@example.com'
 
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #    }
-#}
+# }
 
 DATABASES = {
     'default': {
@@ -159,9 +170,11 @@ USE_REMEMBER_ME = True
 RESTORE_PASSWORD_VIA_EMAIL_OR_USERNAME = False
 ENABLE_ACTIVATION_AFTER_EMAIL_CHANGE = True
 
-SIGN_UP_FIELDS = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+SIGN_UP_FIELDS = ['username', 'first_name',
+                  'last_name', 'email', 'password1', 'password2']
 if DISABLE_USERNAME:
-    SIGN_UP_FIELDS = ['first_name', 'last_name', 'email', 'password1', 'password2']
+    SIGN_UP_FIELDS = ['first_name', 'last_name',
+                      'email', 'password1', 'password2']
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
@@ -197,7 +210,6 @@ LOCALE_PATHS = [
 
 FLAGS_ALLOWED = 3
 
-from django.utils.translation import gettext_lazy as _
 
 FLAG_REASONS = [(1, _('Spam | Exists only to promote a service')),
                 (2, _('Abusive | Intended at promoting hatred')),

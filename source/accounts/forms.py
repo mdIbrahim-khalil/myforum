@@ -12,18 +12,21 @@ from django.utils.translation import gettext_lazy as _
 from captcha.fields import ReCaptchaField
 from django.utils.safestring import mark_safe
 
+
 class UserCacheMixin:
     user_cache = None
 
 
 class SignIn(UserCacheMixin, forms.Form):
-    password = forms.CharField(label=_('Password'), strip=False, widget=forms.PasswordInput)
+    password = forms.CharField(
+        label=_('Password'), strip=False, widget=forms.PasswordInput)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         if settings.USE_REMEMBER_ME:
-            self.fields['remember_me'] = forms.BooleanField(label=_('Remember me'), required=False)
+            self.fields['remember_me'] = forms.BooleanField(
+                label=_('Remember me'), required=False)
 
     def clean_password(self):
         password = self.cleaned_data['password']
@@ -97,9 +100,11 @@ class SignInViaEmailOrUsernameForm(SignIn):
     def clean_email_or_username(self):
         email_or_username = self.cleaned_data['email_or_username']
 
-        user = User.objects.filter(Q(username=email_or_username) | Q(email__iexact=email_or_username)).first()
+        user = User.objects.filter(Q(username=email_or_username) | Q(
+            email__iexact=email_or_username)).first()
         if not user:
-            raise ValidationError(_('You entered an invalid email address or username.'))
+            raise ValidationError(
+                _('You entered an invalid email address or username.'))
 
         if not user.is_active:
             raise ValidationError(_('This account is not active.'))
@@ -111,12 +116,15 @@ class SignInViaEmailOrUsernameForm(SignIn):
 
 class SignUpForm(UserCreationForm):
     captcha = ReCaptchaField()
-    policy_terms = forms.BooleanField(required = True, label=mark_safe('I Acccept <a href="/policy/" target="_blank"> Privacy Policy </a> & <a href="/terms/" target="_blank"> Terms </a>'), widget=forms.CheckboxInput())
+    policy_terms = forms.BooleanField(required=True, label=mark_safe(
+        'I Acccept <a href="/policy/" target="_blank"> Privacy Policy </a> & <a href="/terms/" target="_blank"> Terms </a>'), widget=forms.CheckboxInput())
+
     class Meta:
         model = User
         fields = settings.SIGN_UP_FIELDS
 
-    email = forms.EmailField(label=_('Email'), help_text=_('Required. Enter an existing email address.'))
+    email = forms.EmailField(label=_('Email'), help_text=_(
+        'Required. Enter an existing email address.'))
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -134,12 +142,15 @@ class ResendActivationCodeForm(UserCacheMixin, forms.Form):
     def clean_email_or_username(self):
         email_or_username = self.cleaned_data['email_or_username']
 
-        user = User.objects.filter(Q(username=email_or_username) | Q(email__iexact=email_or_username)).first()
+        user = User.objects.filter(Q(username=email_or_username) | Q(
+            email__iexact=email_or_username)).first()
         if not user:
-            raise ValidationError(_('You entered an invalid email address or username.'))
+            raise ValidationError(
+                _('You entered an invalid email address or username.'))
 
         if user.is_active:
-            raise ValidationError(_('This account has already been activated.'))
+            raise ValidationError(
+                _('This account has already been activated.'))
 
         activation = user.activation_set.first()
         if not activation:
@@ -147,7 +158,8 @@ class ResendActivationCodeForm(UserCacheMixin, forms.Form):
 
         now_with_shift = timezone.now() - timedelta(hours=24)
         if activation.created_at > now_with_shift:
-            raise ValidationError(_('Activation code has already been sent. You can request a new code in 24 hours.'))
+            raise ValidationError(
+                _('Activation code has already been sent. You can request a new code in 24 hours.'))
 
         self.user_cache = user
 
@@ -165,7 +177,8 @@ class ResendActivationCodeViaEmailForm(UserCacheMixin, forms.Form):
             raise ValidationError(_('You entered an invalid email address.'))
 
         if user.is_active:
-            raise ValidationError(_('This account has already been activated.'))
+            raise ValidationError(
+                _('This account has already been activated.'))
 
         activation = user.activation_set.first()
         if not activation:
@@ -173,7 +186,8 @@ class ResendActivationCodeViaEmailForm(UserCacheMixin, forms.Form):
 
         now_with_shift = timezone.now() - timedelta(hours=24)
         if activation.created_at > now_with_shift:
-            raise ValidationError(_('Activation code has already been sent. You can request a new code in 24 hours.'))
+            raise ValidationError(
+                _('Activation code has already been sent. You can request a new code in 24 hours.'))
 
         self.user_cache = user
 
@@ -204,9 +218,11 @@ class RestorePasswordViaEmailOrUsernameForm(UserCacheMixin, forms.Form):
     def clean_email_or_username(self):
         email_or_username = self.cleaned_data['email_or_username']
 
-        user = User.objects.filter(Q(username=email_or_username) | Q(email__iexact=email_or_username)).first()
+        user = User.objects.filter(Q(username=email_or_username) | Q(
+            email__iexact=email_or_username)).first()
         if not user:
-            raise ValidationError(_('You entered an invalid email address or username.'))
+            raise ValidationError(
+                _('You entered an invalid email address or username.'))
 
         if not user.is_active:
             raise ValidationError(_('This account is not active.'))
@@ -217,15 +233,20 @@ class RestorePasswordViaEmailOrUsernameForm(UserCacheMixin, forms.Form):
 
 
 class ChangeProfileForm(forms.Form):
-    first_name = forms.CharField(label=_('First name'), max_length=30, required=False)
-    last_name = forms.CharField(label=_('Last name'), max_length=150, required=False)
+    first_name = forms.CharField(
+        label=_('First name'), max_length=30, required=False)
+    last_name = forms.CharField(
+        label=_('Last name'), max_length=150, required=False)
 
 
 class CancelSubscriptionForm(forms.Form):
-    confirmation = forms.BooleanField(label='Are you sure you want to cancel your subscription?', required=True)
+    confirmation = forms.BooleanField(
+        label='Are you sure you want to cancel your subscription?', required=True)
+
     def __init__(self, user, *args, **kwargs):
         self.user = user
         super().__init__(*args, **kwargs)
+
 
 class ChangeEmailForm(forms.Form):
     email = forms.EmailField(label=_('Email'))
@@ -240,7 +261,8 @@ class ChangeEmailForm(forms.Form):
         if email == self.user.email:
             raise ValidationError(_('Please enter another email.'))
 
-        user = User.objects.filter(Q(email__iexact=email) & ~Q(id=self.user.id)).exists()
+        user = User.objects.filter(
+            Q(email__iexact=email) & ~Q(id=self.user.id)).exists()
         if user:
             raise ValidationError(_('You can not use this mail.'))
 

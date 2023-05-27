@@ -37,8 +37,11 @@ from django.urls import reverse
 import os
 from dotenv import load_dotenv
 load_dotenv()
+
+
 class LandingPageView(TemplateView):
     template_name = 'accounts/landing_page.html'
+
 
 def subscription_view(request):
     subscriptions = Subscription.objects.all()
@@ -67,31 +70,34 @@ def create_checkout_session(request, subscription_id):
     return redirect(checkout_session.url)
 
 
-
 class PaymentSuccessView(TemplateView):
     template_name = 'accounts/payment_success.html'
+
     def get(self, request, *args, **kwargs):
         session_id = request.GET.get('session_id')
         if session_id is None:
             return HttpResponseNotFound()
         stripe.api_key = os.getenv('STRIPE_KEY')
         session = stripe.checkout.Session.retrieve(session_id)
-        line_items = stripe.checkout.Session.list_line_items(session_id, limit=1)
+        line_items = stripe.checkout.Session.list_line_items(
+            session_id, limit=1)
         print(line_items)
         print(session)
 
         activation_all = Activation.objects.filter(user=request.user)
         activation_all.delete()
 
-        activation, order_details = Activation.activate( session, line_items,request.user)
+        activation, order_details = Activation.activate(
+            session, line_items, request.user)
         if activation is None:
             return HttpResponseNotFound()
 
-        return render(request, self.template_name, context={'order_details':order_details, 'activation': activation})
+        return render(request, self.template_name, context={'order_details': order_details, 'activation': activation})
 
 
 class PaymentFailedView(TemplateView):
     template_name = 'accounts/payment_failure.html'
+
 
 '''class PaymentProcessing(TemplateView):
     model = Subscription
@@ -143,7 +149,6 @@ def create_checkout_session(request, id):
     return JsonResponse({'sessionId': checkout_session.id})'''
 
 
-
 '''def create_checkout_session(request, plan_id):
     plan = Subscription.objects.get(id=plan_id)
     session = stripe.checkout.Session.create(
@@ -162,9 +167,9 @@ def create_checkout_session(request, id):
     return render(request, 'checkout.html', context)'''
 
 
-
 class MyAccountPageView(TemplateView):
     template_name = 'accounts/my_account.html'
+
 
 class GuestOnlyView(View):
     def dispatch(self, request, *args, **kwargs):
@@ -210,10 +215,13 @@ class LogInView(GuestOnlyView, FormView):
             if not form.cleaned_data['remember_me']:
                 request.session.set_expiry(0)
 
-        login(request, form.user_cache)
+        login(request, form.user_cache,
+              "django.contrib.auth.backends.ModelBackend")
 
-        redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME))
-        url_is_safe = is_safe_url(redirect_to, allowed_hosts=request.get_host(), require_https=request.is_secure())
+        redirect_to = request.POST.get(
+            REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME))
+        url_is_safe = is_safe_url(
+            redirect_to, allowed_hosts=request.get_host(), require_https=request.is_secure())
 
         if url_is_safe:
             return redirect(redirect_to)
@@ -251,7 +259,6 @@ class SignUpView(GuestOnlyView, FormView):
             user.username = f'user_{user.id}'
             user.save()
 
-
         if settings.ENABLE_USER_ACTIVATION:
             code = get_random_string(20)
 
@@ -284,13 +291,14 @@ class ActivateView(View):
         # Activate profile
         user = act.user
         user.is_active = True
-        #user.is_paid=True
+        # user.is_paid=True
         user.save()
 
         # Remove the activation record
         act.delete()
 
-        messages.success(request, _('You have successfully activated your account!'))
+        messages.success(request, _(
+            'You have successfully activated your account!'))
 
         return redirect('accounts:log_in')
 
@@ -321,7 +329,8 @@ class ResendActivationCodeView(GuestOnlyView, FormView):
 
         send_activation_email(self.request, user.email, code)
 
-        messages.success(self.request, _('A new activation code has been sent to your email address.'))
+        messages.success(self.request, _(
+            'A new activation code has been sent to your email address.'))
 
         return redirect('accounts:resend_activation_code')
 
@@ -366,7 +375,8 @@ class ChangeProfileView(LoginRequiredMixin, FormView):
         user.last_name = form.cleaned_data['last_name']
         user.save()
 
-        messages.success(self.request, _('Profile data has been successfully updated.'))
+        messages.success(self.request, _(
+            'Profile data has been successfully updated.'))
 
         return redirect('accounts:change_profile')
 
@@ -400,7 +410,8 @@ class ChangeEmailView(LoginRequiredMixin, FormView):
 
             send_activation_change_email(self.request, email, code)
 
-            messages.success(self.request, _('To complete the change of email address, click on the link sent to it.'))
+            messages.success(self.request, _(
+                'To complete the change of email address, click on the link sent to it.'))
         else:
             user.email = email
             user.save()
@@ -430,7 +441,8 @@ class CancelSubscriptionView(LoginRequiredMixin, FormView):
         activation_all = Activation.objects.filter(user=user, is_paid=True)
         activation = activation_all.first()
         if not activation:
-            messages.warning(self.request, _('You do not have an active subscription to cancel.'))
+            messages.warning(self.request, _(
+                'You do not have an active subscription to cancel.'))
             return redirect('accounts:cancel_subscription_failed')
 
         # Deactivate the user's subscription
@@ -438,15 +450,18 @@ class CancelSubscriptionView(LoginRequiredMixin, FormView):
         stripe.Subscription.delete(activation.code)
         # activation.deactivate()
         activation_all.delete()
-        messages.success(self.request, _('Your subscription has been cancelled.'))
+        messages.success(self.request, _(
+            'Your subscription has been cancelled.'))
         return redirect('accounts:cancel_subscription_success')
 
 
 class CancelSubscriptionSuccessView(TemplateView):
     template_name = 'accounts/cancel_subscription_success.html'
 
+
 class CancelSubscriptionFailedView(TemplateView):
     template_name = 'accounts/cancel_subscription_failed.html'
+
 
 class ChangeEmailActivateView(View):
     @staticmethod
@@ -461,7 +476,8 @@ class ChangeEmailActivateView(View):
         # Remove the activation record
         act.delete()
 
-        messages.success(request, _('You have successfully changed your email!'))
+        messages.success(request, _(
+            'You have successfully changed your email!'))
 
         return redirect('accounts:change_email')
 
@@ -474,7 +490,8 @@ class RemindUsernameView(GuestOnlyView, FormView):
         user = form.user_cache
         send_forgotten_username_email(user.email, user.username)
 
-        messages.success(self.request, _('Your username has been successfully sent to your email.'))
+        messages.success(self.request, _(
+            'Your username has been successfully sent to your email.'))
 
         return redirect('accounts:remind_username')
 
@@ -501,7 +518,8 @@ class RestorePasswordConfirmView(BasePasswordResetConfirmView):
         # Change the password
         form.save()
 
-        messages.success(self.request, _('Your password has been set. You may go ahead and log in now.'))
+        messages.success(self.request, _(
+            'Your password has been set. You may go ahead and log in now.'))
 
         return redirect('accounts:log_in')
 
@@ -515,7 +533,3 @@ class LogOutView(LoginRequiredMixin, BaseLogoutView):
 
     def get(self, request):
         return HttpResponseRedirect("/")
-
-
-
-    

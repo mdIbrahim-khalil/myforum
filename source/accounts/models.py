@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 from datetime import timedelta
-
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 
@@ -13,7 +12,8 @@ class Subscription(models.Model):
         ('Y', 'Yearly'),
     ]
     name = models.CharField(max_length=20)
-    duration = models.CharField(max_length=1, choices=DURATION_CHOICES, default='M')
+    duration = models.CharField(
+        max_length=1, choices=DURATION_CHOICES, default='M')
     cost = models.IntegerField()
     features = models.TextField(blank=True, null=True)
     payment_id = models.CharField(max_length=100)
@@ -33,7 +33,8 @@ class Subscription(models.Model):
 class OrderDetail(models.Model):
     id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    subscript = models.ForeignKey(Subscription, verbose_name='Product', on_delete=models.PROTECT)
+    subscript = models.ForeignKey(
+        Subscription, verbose_name='Product', on_delete=models.PROTECT)
     amount = models.IntegerField(verbose_name='Amount')
     stripe_payment_intent = models.CharField(max_length=200)
     status = models.BooleanField(default=False, verbose_name='Payment Status')
@@ -48,8 +49,10 @@ class Activation(models.Model):
     email = models.EmailField(blank=True)
     is_paid = models.BooleanField(default=False)
     paid_until = models.DateField(null=True, blank=True)
-    trial_valid_until = models.DateField(default=datetime.date.today() + timedelta(days=15))
-    subscription_type = models.ForeignKey(Subscription, on_delete=models.DO_NOTHING, null=True, blank=True)
+    trial_valid_until = models.DateField(
+        default=datetime.date.today() + timedelta(days=15))
+    subscription_type = models.ForeignKey(
+        Subscription, on_delete=models.DO_NOTHING, null=True, blank=True)
 
     def has_paid_for_current_date(self):
         current_date = datetime.date.today()
@@ -83,7 +86,7 @@ class Activation(models.Model):
             payment_id = line_items["data"][0]["price"]["id"]
             subscription = Subscription.objects.get(payment_id=payment_id)
         else:
-            return None,None
+            return None, None
 
         if is_paid == "paid":
             stripe_payment_intent = stripe_session["id"]
@@ -98,7 +101,7 @@ class Activation(models.Model):
             return activation, order_details
 
         else:
-            return None,None
+            return None, None
 
     # def deactivate(self):
     #     self.is_paid = False
