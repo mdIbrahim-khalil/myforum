@@ -9,7 +9,7 @@
 <!-- Post  -->
 
 <div class="post"
-        style=" padding:25px; box-shadow: 10px 10px 10px rgba(0,0,0,0.4); width: 75%; margin-bottom: 15px; background-color: white;">
+        style=" padding:25px; box-shadow: 5px 5px 5px rgba(0,0,0,0.096); width: 75%; margin-bottom: 15px; background-color: white;">
  
 
     {% if user.is_authenticated %}
@@ -18,15 +18,16 @@
     </div>
     {% endif %}
 
-    <div class="title" style="font-weight: bold; font-size: 18px;">{{ post.title | safer }}</div>
-        
-        <div style="padding: 5px;">
-        <span style="float: left;">{% avatar post.creator 45 class="img-circle img-responsive"%} </span>
-        <div style="font-weight: bold; float: right;width: 90%;">{{ post.creator }}</div>
-        <div style="font-size: 12px ; color:grey; float: right;width: 90%;">
-        <span class="date">{{ post.created }}</span>
-        </div>
+    <div class="title" style="font-weight: bold; font-size: 18px; margin-bottom: 2%;">{{ post.title | safer }}</div>
+    <div style="padding: 5px; display: flex; flex-direction: row; margin-bottom: 10px;">
+    <div style="margin-right: 15px;">{% avatar post.creator 30 class="img-circle img-responsive"%} </div>
+    <div style="float: left; padding: 0">
+       <div style="font-weight: bold;">{{ post.creator }}</div>
+    <div style="font-size: 12px ; color:grey;">
+    <span class="date">{{ post.created }}</span>
     </div>
+    </div>
+</div>
     <span style="display: inline-block;">
         {% if post.is_flagged %}
         <div style="padding: 50px 10px;"><p style="color: silver; float: center;" >This content has been flagged</p></div>
