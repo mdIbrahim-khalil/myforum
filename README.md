@@ -8,3 +8,9 @@
 - login into the webapp
 - create a topic in the forum previously created
 - write posts inside the topic
+
+
+## Run
+cd source
+source ../env/Scripts/activate
+python manage.py runserver

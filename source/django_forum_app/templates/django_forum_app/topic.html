@@ -7,10 +7,10 @@
 
 {% block content %}
 <!-- Posts  -->
-<div style="margin: 10px; display: flow-root;">
+<div style="margin: 10px; display: flex; justify-content: space-between;">
     <span class="ttitle" style="font-size: x-large; float:left; font-weight: bold; ">{{ topic.title | safer }}</span>
-    <span style="float: right; width:35%"><a class="btn btn-primary"
-            href="{% url 'forum:reply' forum.slug topic.pk %}">{% trans 'Write Post' %}</a></span>
+    <a class="btn btn-primary" style="height: 35px;"
+            href="{% url 'forum:reply' forum.slug topic.pk %}">{% trans 'Write Post' %}</a>
 </div>
 <div id="list">
     {% for post in posts %}

@@ -5,7 +5,7 @@
 {% block content %}
 <!-- Threads  -->
 <div class="container w-100">
-<div class="post" style="border: 1px solid grey; padding:15px; box-shadow: 10px 10px 10px rgba(0,0,0,0.4); margin-bottom: 15px; border-radius:20px; background-color: white;">
+<div class="post" style="padding:25px; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.096); margin-bottom: 15px; background-color: white;">
 <div>
 <span style="font-size: large; font-weight: bold;">{{forum.title}} </span>
 <span style="float: right;"><a id="new_topic" class="btn btn-primary" href="{% url 'forum:new-topic' forum.slug %}">{% trans 'Start New Topic' %}</a>

@@ -1,8 +1,8 @@
-from django.utils.translation import gettext_lazy as _
 import os
 import warnings
 from os.path import dirname
 
+from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ugettext_lazy as _
 
 warnings.simplefilter('error', DeprecationWarning)
@@ -139,16 +139,16 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'social_app_db',
         'USER': 'root',
-        'PASSWORD': '01858692m!K',
+        'PASSWORD': 'tasmia@1',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+        'PORT': 3306,
     }
 }
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    # },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
