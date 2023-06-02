@@ -62,7 +62,7 @@
                 <span class="date">{{ post.created | naturaltime }}</span>
                 </span>
                 </div> 
-            <span style="display: inline-block; padding-left: inherit">
+                <span style="display: inline-block; padding-left: inherit">
                     {% if post.is_flagged %}
                     <div style="padding: 50px 10px;">
                         <p style="color: silver; float: center;">This content has been flagged</p>
@@ -70,16 +70,15 @@
                     {% else %}
                     <div style="padding: 10px;">{{ post.body | safer }} </div>
                     {% endif %}
-                    <div>
-                        {% if posts.tags %}
-                            <h3>Tags:</h3>
-                            <ul>
-                                {% for tag in posts.tags.all %}
-                                    <li>{{ tag.name }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
+                    {% if post.tags %}
+                    <div class="row">
+                        <div class="col">
+                            {%for tag in post.tags.all %}
+                            <span class="btn btn-sm btn-outline-secondary">{{tag.name}}</span>
+                            {%endfor %}
+                        </div>
                     </div>
+                    {%endif%}
 
                     <div>
                         {% if request.user == post.creator %}

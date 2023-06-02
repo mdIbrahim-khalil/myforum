@@ -35,9 +35,14 @@ class TopicAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    search_fields = ["title", "creator"]
-    list_display = ["title", "topic", "creator", "created"]
+    search_fields = ["title", "creator", 'tag_list']
+    list_display = ["title", "topic", "creator", "created", "tag_list"]
     raw_id_fields = ('creator', 'topic')
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('tags')
+
+    def tag_list(self, obj):
+        return u", ".join(o.name for o in obj.tags.all())
     # form = PostAdminForm
 
 

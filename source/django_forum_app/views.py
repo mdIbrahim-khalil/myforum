@@ -216,7 +216,8 @@ def post_reply(request, slug, topic_id):
                 post.save()
                 # Get the tags associated with the post
                 tags = form.cleaned_data.get('tags')
-                post.tags.set(tags)
+                tag_list = [tag.strip() for tag in tags.split(',')]
+                post.tags.add(*tag_list)
                 return HttpResponseRedirect(reverse('forum:topic-detail', args=(slug, topic.id,)))
 
         return render(request, 'django_forum_app/reply.html', {'form': form, 'topic': topic, 'forum': forum, 'posts': posts, 'quote': quote}) 

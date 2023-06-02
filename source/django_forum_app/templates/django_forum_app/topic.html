@@ -41,6 +41,16 @@
             <div style="padding: 10px;">{{ post.body | safer }} </div>
             {% endif %}
 
+            {% if post.tags %}
+                <div class="row">
+                    <div class="col">
+                        {%for tag in post.tags.all %}
+                        <span class="btn btn-sm btn-outline-secondary">{{tag.name}}</span>
+                        {%endfor %}
+                    </div>
+                </div>
+            {%endif%}
+
             <div> 
                 {% if request.user == post.creator %}
 
