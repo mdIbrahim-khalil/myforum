@@ -4,7 +4,7 @@
 {% load avatar_tags %}
 {% load forum_tags %}
 {% load flag_tags %}
-
+{% load humanize %}
 {% block content %}
 <!-- Posts  -->
 <div style="margin: 10px; display: flex; justify-content: space-between;">
@@ -42,7 +42,17 @@
             <div style="padding: 10px;">{{ post.body | safer }} </div>
             {% endif %}
 
-            <div>
+            {% if post.tags %}
+                <div class="row">
+                    <div class="col">
+                        {%for tag in post.tags.all %}
+                        <span class="btn btn-sm btn-outline-secondary">{{tag.name}}</span>
+                        {%endfor %}
+                    </div>
+                </div>
+            {%endif%}
+
+            <div> 
                 {% if request.user == post.creator %}
 
                 <span style="color: #41B3C5; margin-left: 15px;">

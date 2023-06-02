@@ -4,12 +4,9 @@
 {% load avatar_tags %}
 {% load forum_tags %}
 {% load flag_tags %}
-
+{% load humanize %}
 {% block content %}
-<!-- Posts  -->
-<!-- <div style="margin: 5px; padding: 4%; display: flow-root; ">
-    <span class="title" style="font-size: x-large; float:left; font-weight: bold; ">New Posts</span>
-</div> -->
+
 <div id="list" style="width: 100% ">
     {% for post in posts %}
         {% if not is_paid_user and post.is_paid %}
@@ -74,6 +71,15 @@
                     {% else %}
                     <div style="padding: 10px;">{{ post.body | safer }} </div>
                     {% endif %}
+                    {% if post.tags %}
+                    <div class="row">
+                        <div class="col">
+                            {%for tag in post.tags.all %}
+                            <span class="btn btn-sm btn-outline-secondary">{{tag.name}}</span>
+                            {%endfor %}
+                        </div>
+                    </div>
+                    {%endif%}
 
                     <div>
                         {% if request.user == post.creator %}

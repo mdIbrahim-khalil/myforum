@@ -6,8 +6,26 @@
 <div style="box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.096); padding:35px; background-color: white;">
 <form action="{% url 'forum:reply' forum.slug topic.id %}" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit" />
+    {% for field in form %}
+        {% if 'Is' in field.label %}
+            <div class="form-group">
+                {{ field }}
+                <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            </div>
+        {% elif field.label == 'Tags'  %}
+            <div class="form-group">
+                <label  for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <p>{{ field.help_text}}</p>
+                {{ field }}
+            </div>
+        {% else %}
+            <div class="form-group">
+                <label class="col-form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+        {% endif %}
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </div>
 {% endblock %}

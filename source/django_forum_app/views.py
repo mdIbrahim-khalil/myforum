@@ -213,11 +213,14 @@ def post_reply(request, slug, topic_id):
                 post.creator = request.user
                 post.user_ip = request.META['REMOTE_ADDR']
                 post.body = parse_post(post.body)
-                # print(post.body)
                 post.save()
+                # Get the tags associated with the post
+                tags = form.cleaned_data.get('tags')
+                tag_list = [tag.strip() for tag in tags.split(',')]
+                post.tags.add(*tag_list)
                 return HttpResponseRedirect(reverse('forum:topic-detail', args=(slug, topic.id,)))
 
-        return render(request, 'django_forum_app/reply.html', {'form': form, 'topic': topic, 'forum': forum, 'posts': posts, 'quote': quote})
+        return render(request, 'django_forum_app/reply.html', {'form': form, 'topic': topic, 'forum': forum, 'posts': posts, 'quote': quote}) 
     except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]

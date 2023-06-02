@@ -1,5 +1,6 @@
 {
   "python.linting.enabled": false,
+  "editor.formatOnSave": false,
   "[python]": {
     "editor.defaultFormatter": "ms-python.autopep8"
   },

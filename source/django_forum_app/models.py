@@ -22,6 +22,7 @@ from flag.models import Flag
 from django.urls import reverse
 
 from bs4 import BeautifulSoup
+from taggit.managers import TaggableManager
 
 POSTS_PER_PAGE = getattr(settings, 'POSTS_PER_PAGE', 10)
 
@@ -164,6 +165,8 @@ class Post(models.Model):
     body = models.TextField(max_length=10000)
     user_ip = models.GenericIPAddressField(blank=True, null=True)
     telegram_id = models.CharField(max_length=20, blank=True, null=True)
+    # Add the tags field
+    tags = TaggableManager(verbose_name="Tags", help_text="A comma-separated list of tags.", through=None, blank=False)
     is_paid = models.BooleanField(default=False)
     #user_typ = models.ForeignKey(Activation, limit_choices_to={'is_paid': True}, on_delete=models.CASCADE)
     is_locked = models.BooleanField(default=False)
