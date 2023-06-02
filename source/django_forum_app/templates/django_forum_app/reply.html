@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block content %}
-<div style="box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.096); border: 1px solid grey;  padding:15px;">
+<div style="box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.096); padding:35px; background-color: white;">
 <form action="{% url 'forum:reply' forum.slug topic.id %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
