@@ -44,8 +44,19 @@ class TopicForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
+    title = forms.CharField(
+        label='Title',
+        max_length=60,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Title')})
+    )
     body = forms.CharField(label=_('Body'), widget=TinyMCE(
         attrs={'class':'mce-here', 'cols': 40, 'rows': 30, 'placeholder': _("Your answer...")}, mce_attrs=TINYMCE_DEFAULT_CONFIG))
+
+    tags = forms.CharField(
+        label='Tags',
+        help_text=_('Add upto 5 comma separated tags'),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('e.g. (tag1, tag2, tag3)')})
+    )
 
     class Meta():
         model = Post

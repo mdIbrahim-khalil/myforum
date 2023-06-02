@@ -4,12 +4,9 @@
 {% load avatar_tags %}
 {% load forum_tags %}
 {% load flag_tags %}
-
+{% load humanize %}
 {% block content %}
-<!-- Posts  -->
-<!-- <div style="margin: 5px; padding: 4%; display: flow-root; ">
-    <span class="title" style="font-size: x-large; float:left; font-weight: bold; ">New Posts</span>
-</div> -->
+
 <div id="list" style="width: 100% ">
     {% for post in posts %}
         {% if not is_paid_user and post.is_paid %}
@@ -62,9 +59,9 @@
                 <span style="display: table">
                    <div style="font-weight: bold; float: right;width: 90%;">{{ post.creator }}</div>
                 <div style="font-size: 12px ; color:grey; float: right;width: 90%;">
-                <span class="date">{{ post.created }}</span>
+                <span class="date">{{ post.created | naturaltime }}</span>
                 </span>
-                </div>
+                </div> 
             <span style="display: inline-block; padding-left: inherit">
                     {% if post.is_flagged %}
                     <div style="padding: 50px 10px;">
@@ -73,6 +70,16 @@
                     {% else %}
                     <div style="padding: 10px;">{{ post.body | safer }} </div>
                     {% endif %}
+                    <div>
+                        {% if posts.tags %}
+                            <h3>Tags:</h3>
+                            <ul>
+                                {% for tag in posts.tags.all %}
+                                    <li>{{ tag.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
 
                     <div>
                         {% if request.user == post.creator %}

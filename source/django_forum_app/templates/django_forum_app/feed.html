@@ -4,6 +4,7 @@
 {% load avatar_tags %}
 {% load forum_tags %}
 {% load flag_tags %}
+{% load humanize %}
 
 {% block content %}
 <!-- Posts  -->
@@ -47,7 +48,7 @@
         <span style="float: left;">{% avatar post.creator 45 class="img-circle img-responsive"%} </span>
         <div style="font-weight: bold; float: right;width: 90%;">{{ post.creator }}</div>
         <div style="font-size: 12px ; color:grey; float: right;width: 90%;">
-        <span class="date">{{ post.created }}</span>
+        <span class="date">{{ post.created |naturaltime }}</span> 
         </div>
     </div> 
     <span style="display: inline-block;">

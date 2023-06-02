@@ -31,7 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
+    'django.contrib.humanize',
+    
     # google auth
     "allauth",
     "allauth.account",
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
 
     # Vendor apps
     'bootstrap4',
+    'taggit',
 
     # Application apps
     'main',
