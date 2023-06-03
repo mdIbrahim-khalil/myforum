@@ -9,8 +9,10 @@
 <!-- Posts  -->
 <div style="margin: 10px; display: flex; justify-content: space-between;">
     <span class="ttitle" style="font-size: x-large; float:left; font-weight: bold; ">{{ topic.title | safer }}</span>
+    {% if is_admin %}
     <a class="btn btn-primary" style="height: 35px;"
             href="{% url 'forum:reply' forum.slug topic.pk %}">{% trans 'Write Post' %}</a>
+    {% endif %}
 </div>
 <div id="list">
     {% for post in posts %}

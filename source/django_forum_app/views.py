@@ -7,7 +7,7 @@ except:
 from django.template.context_processors import csrf
 from django_forum_app.models import Category, Forum, Topic, Post, Vote, Comment
 from django_forum_app.forms import TopicForm, PostForm, CommentForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
 from accounts.models import Activation, User
 
@@ -125,8 +125,9 @@ def forum(request, slug):
     paginator = Paginator(topics, 10)
     page_number = request.GET.get('page')
     topics2 = paginator.get_page(page_number)
+    is_admin = request.user.is_superuser
 
-    return render(request, "django_forum_app/forum.html", add_csrf(request, topics=topics2, forum=forum))
+    return render(request, "django_forum_app/forum.html", add_csrf(request, topics=topics2, forum=forum, is_admin=is_admin))
 
 
 def search_topic(request):
@@ -166,8 +167,10 @@ def topic(request, slug, topic_id):
     topic = Topic.objects.get(pk=topic_id)
     topic.sum_visits(user)
 
+    is_admin = request.user.is_superuser
+
     votes = Vote.objects.all()
-    return render(request, "django_forum_app/topic.html", add_csrf(request, slug=slug, forum=forum, posts=posts2, votes=votes,topic=topic))
+    return render(request, "django_forum_app/topic.html", add_csrf(request, slug=slug, forum=forum, posts=posts2, votes=votes,topic=topic, is_admin= is_admin))
 
 
 @login_required
@@ -180,6 +183,7 @@ def close_topic(request, slug, topic_id):
 
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def post_reply(request, slug, topic_id):
     try:
         msg = 'Error occurred. Please ensure you post only one photo in a post.'
@@ -228,6 +232,7 @@ def post_reply(request, slug, topic_id):
             return render(request, 'django_forum_app/reply.html', {'error_msg': msg,'form': form, 'topic': topic, 'forum': forum, 'posts': posts, 'quote': quote} )
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def new_topic(request, slug):
     form = TopicForm()
     forum = get_object_or_404(Forum, slug=slug)

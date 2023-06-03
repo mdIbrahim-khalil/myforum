@@ -100,6 +100,16 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'APP': {
+#             'client_id': 'your_client_id',
+#             'secret': 'your_client_secret',
+#             'key': ''
+#         }
+#     }
+# }
+
 ROOT_URLCONF = 'app.urls'
 
 TEMPLATES = [
@@ -141,16 +151,16 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'social_app_db',
         'USER': 'root',
-        'PASSWORD': 'tasmia@1',
+        'PASSWORD': '01858692m!K',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': 3306,
     }
 }
 
 AUTH_PASSWORD_VALIDATORS = [
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    # },
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },

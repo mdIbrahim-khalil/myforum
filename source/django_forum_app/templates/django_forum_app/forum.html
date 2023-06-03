@@ -8,8 +8,10 @@
 <div class="post" style="padding:25px; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.096); margin-bottom: 15px; background-color: white;">
 <div>
 <span style="font-size: large; font-weight: bold;">{{forum.title}} </span>
+{% if is_admin %}
 <span style="float: right;"><a id="new_topic" class="btn btn-primary" href="{% url 'forum:new-topic' forum.slug %}">{% trans 'Start New Topic' %}</a>
 </span>
+{% endif %}
 </div>
 {% if not topics %}
 <div style="border-radius: 10px; margin:20px; padding: 10px; background-color: lightgrey; font-size: small;">
@@ -32,9 +34,8 @@ Please make sure your topic is relevant to the Forum.
     <thead>
     <tr>
         <th>{% trans 'Topics' %}</th>
-        <th>{% trans 'Replies' %}</th>
-        <th>{% trans 'Last post' %}</th>
-        <td>{% trans 'Action' %}</td>
+        <th>{% trans 'Posts' %}</th>
+        <th>{% trans 'Tags' %}</th>
     </tr>
     </thead>
 
@@ -44,11 +45,33 @@ Please make sure your topic is relevant to the Forum.
         <td {% if forloop.last %}class="last"{% endif %}>
         <div class="title"> <a href="{% url 'forum:topic-detail' forum.slug topic.pk %}">{{ topic.title }}</a>
             </div></td>
-        <td {% if forloop.last %}class="last"{% endif %}>{{ topic.num_replies }}</td>
-        <td {% if forloop.last %}class="last"{% endif %}>
-            {{ topic.last_post.short|linebreaksbr }}</td>
-        <td {% if forloop.last %}class="last"{% endif %}>
+            <td>
+                <ul>
+                    {% for post in topic.post_set.all %}
+                      <li>{{ post.title }}</li>
+                    {% endfor %}
+                  </ul>
+            </td>
+              <td>
+                <ul>
+                    {% for post in topic.post_set.all %}
+                      {% for tag in post.tags.all %}
+                        <li>{{ tag }}</li>
+                      {% endfor %}
+                    {% endfor %}
+                  </ul>
+              </td>
+            
+        <!-- <td {% if forloop.last %}class="last"{% endif %}>{{ topic.num_replies }}</td> -->
+        <!-- <td {% if forloop.last %}class="last"{% endif %}>
+            {{ topic.last_post.short|linebreaksbr }}</td> -->
+        <!-- <td {% if forloop.last %}class="last"{% endif %}>
             <a class="button" href="{% url 'forum:topic-detail' forum.slug topic.pk %}">{% trans 'View' %}</a>
+        </td> -->
+        <td {% if forloop.last %}class="last"{% endif %}>
+            {% for tag in topic.tags.all %}
+                <a href="{% url 'forum:tag' tag.slug %}">{{ tag }}</a>
+            {% endfor %}
         </td>
     </tr>
 </tbody>

@@ -69,7 +69,48 @@
                         <p style="color: silver; float: center;">This content has been flagged</p>
                     </div>
                     {% else %}
-                    <div style="padding: 10px;">{{ post.body | safer }} </div>
+                    <div class="post-preview" >
+                        <div class="post-content" style="display: flex; flex-direction: column; padding: 10px;">
+                            <div class="truncated-content" style="flex-grow: 1;"> 
+                                {% if post.body|length > 400 %}
+                                    {{ post.body|truncatechars:400|safer }}
+                                {% else %}
+                                    {{ post.body | safer }}
+                                {% endif %}
+                            </div>
+                            {% if post.body|length > 200 %}
+                                <div class="full-content" style="display: none;">
+                                    {{ post.body | safer }}
+                                </div>
+                                <div class="buttons">
+                                    <a href="#" class="more-link">More</a>
+                                    <a href="#" class="less-link" style="display: none;">Less</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <script>
+                        $(document).ready(function() {
+                            $('.more-link').click(function(e) {
+                                e.preventDefault();
+                                $(this).hide();
+                                $(this).siblings('.less-link').show();
+                                $(this).closest('.post-content').find('.truncated-content').hide();
+                                $(this).closest('.post-content').find('.full-content').show();
+                                
+                            });
+                            $('.less-link').click(function(e) {
+                                e.preventDefault();
+                                $(this).hide();
+                                $(this).siblings('.more-link').show();
+                                $(this).closest('.post-content').find('.truncated-content').show();
+                                $(this).closest('.post-content').find('.full-content').hide();
+                                
+                            });
+                        });
+
+                    </script>
+                    <!-- <div style="padding: 10px;">{{ post.body | safer }} </div> -->
                     {% endif %}
                     {% if post.tags %}
                     <div class="row">
