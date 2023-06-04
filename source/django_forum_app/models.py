@@ -223,7 +223,7 @@ class Post(models.Model):
         return voters
     downvoted_users = property(_downvoted_users)
 
-    def _flag_counts(self):
+    def _flag_counts(self): 
         "Returns number of flags resgiterd for the post."
         if (self.flags.all()):
             post_flags = self.flags.all()[0].flags.all().count()
@@ -239,6 +239,10 @@ class Post(models.Model):
         else:
             return False
     is_flagged = property(_is_flagged)
+    
+    @property
+    def vote_difference(self):
+        return self.upvotes - self.downvotes
 
 
     def get_comments(self):

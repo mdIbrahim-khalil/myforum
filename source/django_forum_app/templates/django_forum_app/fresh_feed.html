@@ -69,23 +69,62 @@
                         <p style="color: silver; float: center;">This content has been flagged</p>
                     </div>
                     {% else %}
-                    <div class="post-preview" >
+                    <div class="post-preview">
                         <div class="post-content" style="display: flex; flex-direction: column; padding: 10px;">
-                            <div class="truncated-content" style="flex-grow: 1;"> 
-                                {% if post.body|length > 400 %}
-                                    {{ post.body|truncatechars:400|safer }}
-                                {% else %}
-                                    {{ post.body | safer }}
-                                {% endif %}
+                            {% if post.body|length > 400 %}
+                                <div class="truncated-content">
+                                    <span style="display: inline-flex;align-items: center;">{{ post.body|truncatechars:400|safer }}
+                                        <button class="more-link" style="margin-right: 10px;">More</button>
+                                    </span>
+                                </div>
+                                <div class="full-content" style="display: none;">
+                                        <span style="display: inline-flex;">{{ post.body | safer }}<button class="less-link">Less</button></span>  
+                                </div>
+                            {% else %}
+                            <div class="full-content">
+                                <span>{{ post.body | safer }}</span>
                             </div>
-                            {% if post.body|length > 200 %}
+                            {% endif %}
+                        </div>
+                    </div>  
+                    <script>
+                        $(document).ready(function() {
+                            $('.more-link').click(function(e) {
+                                e.preventDefault();
+                                $(this).closest('.post-content').find('.truncated-content').hide();
+                                $(this).closest('.post-content').find('.full-content').show();
+                            });
+                            
+                            $('.less-link').click(function(e) {
+                                e.preventDefault();
+                                $(this).closest('.post-content').find('.full-content').hide();
+                                $(this).closest('.post-content').find('.truncated-content').show();
+                            });
+                        });
+
+                    </script>
+                    
+                    <!-- <div class="post-preview" >
+                        <div class="post-content" style="display: flex; flex-direction: column; padding: 10px;">
+                            {% if post.body|length > 400 %}
+                                <div class="truncated-content" style="flex-grow: 1;"> 
+                                        {{ post.body|truncatechars:400|safer }}
+                                        <div class="buttons">
+                                            <a href="#" class="more-link">More</a>
+                                            <a href="#" class="less-link" style="display: none;">Less</a>
+                                        </div>
+                                </div>
                                 <div class="full-content" style="display: none;">
                                     {{ post.body | safer }}
+                                    <div class="buttons">
+                                        <a href="#" class="less-link">Less</a>
+                                        <a href="#" class="more-link" style="display: none;">More</a> 
+                                    </div>
                                 </div>
-                                <div class="buttons">
-                                    <a href="#" class="more-link">More</a>
-                                    <a href="#" class="less-link" style="display: none;">Less</a>
-                                </div>
+                            {% else %}
+                            <div>
+                                {{ post.body | safer }}
+                            </div>
                             {% endif %}
                         </div>
                     </div>
@@ -94,7 +133,7 @@
                             $('.more-link').click(function(e) {
                                 e.preventDefault();
                                 $(this).hide();
-                                $(this).siblings('.less-link').show();
+                                $(this).closest('.buttons').find('.less-link').show();
                                 $(this).closest('.post-content').find('.truncated-content').hide();
                                 $(this).closest('.post-content').find('.full-content').show();
                                 
@@ -102,14 +141,14 @@
                             $('.less-link').click(function(e) {
                                 e.preventDefault();
                                 $(this).hide();
-                                $(this).siblings('.more-link').show();
+                                $(this).closest('.buttons').find('.more-link').show();
                                 $(this).closest('.post-content').find('.truncated-content').show();
                                 $(this).closest('.post-content').find('.full-content').hide();
                                 
                             });
                         });
 
-                    </script>
+                    </script> -->
                     <!-- <div style="padding: 10px;">{{ post.body | safer }} </div> -->
                     {% endif %}
                     {% if post.tags %}
@@ -132,9 +171,11 @@
                                     d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z">
                                 </path>
                             </svg>
-                            <span>{{post.upvotes}}</span>
+                            <!-- <span>{{post.upvotes}}</span> -->
+                            <span>{{ post.vote_difference }}</span>
                         </span>
-
+                        <!-- <span>{{ post.upvotes|subtract:post.downvotes}}</span> -->
+                        <!-- <span>{{ post.vote_difference }}</span> -->
                         <span style="color: #41B3C5; margin-left: 25px;">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -142,7 +183,7 @@
                                     d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z">
                                 </path>
                             </svg>
-                            <span>{{post.downvotes}}</span>
+                            <!-- <span>{{post.downvotes}}</span> -->
                         </span>
 
                         <span>
@@ -170,7 +211,7 @@
                                     d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z">
                                 </path>
                             </svg>
-                            <span>{{post.upvotes}}</span>
+                            <span>{{post.vote_difference}}</span>
                         </button>
                         {% else %}
                         <button type="button" class="btn btn-outline-info upvote" data-object_id={{post.id}}
@@ -181,10 +222,12 @@
                                     d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z">
                                 </path>
                             </svg>
-                            <span>{{post.upvotes}}</span>
+                            <!-- <span>{{post.upvotes}}</span> -->
+                            <span>{{ post.vote_difference }}</span>
                         </button>
                         {% endif %}
-
+                        <!-- <span>{{ post.upvotes|subtract:post.downvotes}}</span> -->
+                        <!-- <span>{{ post.vote_difference }}</span> -->
                         {% if request.user.id in post.downvoted_users %}
                         <button type="button" class="btn btn-info downvote" data-object_id={{post.id}} data-object_type="post">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor"
@@ -193,7 +236,7 @@
                                     d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z">
                                 </path>
                             </svg>
-                            <span>{{post.downvotes}}</span>
+                            <!-- <span>{{post.downvotes}}</span> -->
                         </button>
                         {% else %}
                         <button type="button" class="btn btn-outline-info downvote" data-object_id={{post.id}}
@@ -204,7 +247,7 @@
                                     d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z">
                                 </path>
                             </svg>
-                            <span>{{post.downvotes}}</span>
+                            <!-- <span>{{post.downvotes}}</span> -->
                         </button>
                         {% endif %}
 

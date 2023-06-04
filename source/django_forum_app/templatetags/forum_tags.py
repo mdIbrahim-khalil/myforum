@@ -27,11 +27,13 @@ _ALLOWED_TAGS = ['b', 'i', 'ul', 'li', 'p', 'br', 'h1', 'h2', 'h3', 'h4', 'ol', 
 def check_seen(obj, user):
     return obj.has_seen(user)
 
-
-
 @register.filter()
 def safer(text):
     return mark_safe(bleach.clean(text, tags=_ALLOWED_TAGS, attributes=_ALLOWED_ATTRIBUTES))
+
+@register.filter()
+def safer_with_span(text):
+    return mark_safe(f'<span>{bleach.clean(text, tags=_ALLOWED_TAGS, attributes=_ALLOWED_ATTRIBUTES)}</span>')
 
 @register.simple_tag
 def convert_to_time_ago(date_time):
@@ -45,3 +47,7 @@ def get_popular_forums():
     forums = sorted(forums, key=lambda x: x.num_posts() , reverse=True)
     forums = forums[0:conf_settings.POPULAR_FORUMS]
     return forums
+
+@register.filter
+def subtract(value, arg):
+    return value - arg

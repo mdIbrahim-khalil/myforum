@@ -272,7 +272,7 @@ def delete_post(request, forum_slug, topic_id, pk):
         
 
 @csrf_exempt
-def vote_object(request):
+def vote_object(request): 
 
     if request.user.is_authenticated:
 
@@ -302,6 +302,7 @@ def vote_object(request):
         user_has_downvoted = (True if request.user.id in obj.downvoted_users else False)
         response_data =  {'upvotes' : obj.upvotes ,
                             'downvotes': obj.downvotes,
+                            'vote_difference': obj.vote_difference,
                             'user_has_upvoted':user_has_upvoted,
                             'user_has_downvoted':user_has_downvoted}
         
