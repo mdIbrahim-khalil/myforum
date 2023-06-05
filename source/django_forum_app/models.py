@@ -240,10 +240,9 @@ class Post(models.Model):
             return False
     is_flagged = property(_is_flagged)
     
-    @property
-    def vote_difference(self):
-        return self.upvotes - self.downvotes
-
+    def _vote_difference(self):
+        return self._get_up_votes() - self._get_down_votes()
+    vote_difference = property(_vote_difference)
 
     def get_comments(self):
         return Comment.objects.filter(post=self.id).order_by("-created")
