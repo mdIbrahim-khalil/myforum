@@ -217,6 +217,7 @@ def post_reply(request, slug, topic_id):
                 post.creator = request.user
                 post.user_ip = request.META['REMOTE_ADDR']
                 post.body = parse_post(post.body)
+                post.is_paid = form.cleaned_data['is_paid']
                 post.save()
                 # Get the tags associated with the post
                 tags = form.cleaned_data.get('tags')

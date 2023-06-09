@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # Vendor apps
     'bootstrap4',
     'taggit',
+    'django_toggle_switch_widget',
 
     # Application apps
     'main',

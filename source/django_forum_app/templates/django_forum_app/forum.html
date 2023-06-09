@@ -1,11 +1,11 @@
 {% extends 'layouts/default/page.html' %}
 {% load bootstrap4 %}
 {% load i18n %}
-
+{% load forum_tags %}
 {% block content %}
 <!-- Threads  -->
 <div class="container w-100">
-<div class="post" style="padding:25px; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.096); margin-bottom: 15px; background-color: white;">
+<div class="post" style="padding:25px;  margin-bottom: 15px; background-color: white;">
 <div>
 <span style="font-size: large; font-weight: bold;">{{forum.title}} </span>
 {% if is_admin %}
@@ -31,34 +31,30 @@ Please make sure your topic is relevant to the Forum.
 <div id="list" style="overflow-x: auto;
     width: 100%;">
 <table border="0" cellpadding="2" style="font-size: 12px;" class="table table-striped custab">
-    <thead>
     <tr>
         <th>{% trans 'Topics' %}</th>
         <th style= "padding-left: 40px;">{% trans 'Posts' %}</th>
         <th>{% trans 'Tags' %}</th>
     </tr>
-    </thead>
 
     {% for topic in topics %}
-    <tbody>
     <tr>
         <td {% if forloop.last %}class="last"{% endif %}>
             <div class="title"> <a href="{% url 'forum:topic-detail' forum.slug topic.pk %}">{{ topic.title }}</a>
             </div>
         </td>
         <td style= "padding-left: 40px;">
-            <ul style="margin-left: 0px; padding-left: 0px;">
+            {{ topic.num_posts }}
+            <!-- <ul style="margin-left: 0px; padding-left: 0px;">
                 {% for post in topic.post_set.all %}
                     <li>{{ post.title }}</li>
                 {% endfor %}
-                </ul>
+            </ul> -->
         </td>
         <td>
             <ul style="margin-left: 0px; padding-left: 0px;">
-                {% for post in topic.post_set.all %}
-                    {% for tag in post.tags.all %}
+                {% for tag in topic.post_set.all|top_3_tag %}
                     <li style="margin-left: 0px;">{{ tag }}</li>
-                    {% endfor %}
                 {% endfor %}
             </ul>
         </td>
@@ -75,7 +71,6 @@ Please make sure your topic is relevant to the Forum.
             {% endfor %}
         </td> -->
     </tr>
-</tbody>
     {% endfor %}
 </table>
 </div>

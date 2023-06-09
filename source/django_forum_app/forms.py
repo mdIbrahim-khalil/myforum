@@ -64,6 +64,13 @@ class PostForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('e.g. (tag1, tag2, tag3)')})
     )
 
+    is_paid = forms.BooleanField(
+        label='Is Paid',
+        required=False,
+        widget=forms.CheckboxInput(
+            attrs={'class': 'custom-control-input', 'data-toggle': 'toggle', 'data-on': 'Yes', 'data-off': 'No'}
+        )
+    )
     class Meta():
         model = Post
         exclude = ('creator', 'updated', 'created', 'topic', 'user_ip', 'telegram_id')

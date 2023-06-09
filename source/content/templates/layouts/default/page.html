@@ -71,6 +71,29 @@ as language_code %} {% load notification_tags %} {% include_notify_js_variables
               style="width: 148px"
           /></a>
         </div>
+        <div style="margin-left: 20%">
+          <form
+            class="navbar-form"
+            action="{% url 'django_forum_app:search-topic' %}"
+            method="get"
+          >
+            <div class="form-group">
+              <input
+                class="form-control mr-sm-2 jqtypeahead"
+                type="text"
+                placeholder="Search Topic"
+                name="keyword"
+              />
+            </div>
+            <button
+              style="text-decoration: none; color: white"
+              class="btn my-2 my-sm-0"
+              type="submit"
+            >
+              Search
+            </button>
+          </form>
+        </div>
         <div class="navbar-right" style="margin-right: 0">
           <button
             type="button"
@@ -87,29 +110,6 @@ as language_code %} {% load notification_tags %} {% include_notify_js_variables
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  style="margin-right: 3%">
           <ul class="nav navbar-nav navbar-right">
-            <li>
-              <form
-                class="navbar-form"
-                action="{% url 'django_forum_app:search-topic' %}"
-                method="get"
-              >
-                <div class="form-group">
-                  <input
-                    class="form-control mr-sm-2 jqtypeahead"
-                    type="text"
-                    placeholder="Search Topic"
-                    name="keyword"
-                  />
-                </div>
-                <button
-                  style="text-decoration: none; color: white"
-                  class="btn my-2 my-sm-0"
-                  type="submit"
-                >
-                  Search
-                </button>
-              </form>
-            </li>
             {% if request.user.is_authenticated %}
             <li>
               <a
@@ -189,13 +189,14 @@ as language_code %} {% load notification_tags %} {% include_notify_js_variables
       <!-- </div> -->
     </nav>
     <div
-      style="margin: 10rem 5rem;"
+      style="margin: 10rem 0rem 10rem 5rem;"
     >
       <div class="row w-100">
-        <div class="col-3">
+        <!-- Left Sidebar -->
+        <div class="col-2">
           <div
             class="section-sidebar d-flex justify-content-between d-sm-block"
-            style="padding: 5px; border: 5px solid whitesmoke"
+            style="padding: 5px 0px 5px 5px; border: 5px solid whitesmoke"
           >
             <p>
               <a
@@ -239,6 +240,8 @@ as language_code %} {% load notification_tags %} {% include_notify_js_variables
             {% endfor %}
           </div>
         </div>
+
+        <!-- Main Content Loader -->
         <div class="col-6">
           <div style="margin-bottom: 10%">
             {% if error_msg %}
@@ -258,7 +261,9 @@ as language_code %} {% load notification_tags %} {% include_notify_js_variables
             {% endblock%}
           </div>
         </div>
-        <div class="col-3"></div>
+
+        <!-- Right sidebar for future content -->
+        <div class="col-4"></div>
       </div>
 
       <!-- container-fluid mt-3 -->

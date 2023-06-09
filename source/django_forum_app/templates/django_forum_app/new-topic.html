@@ -2,7 +2,7 @@
 {% load bootstrap4 %}
 {% load i18n %}
 {% block content %}
-<div class="post" style="padding:25px; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.096); margin-bottom: 15px; border-radius:20px; background-color: white;">
+<div class="post" style="padding:25px;  margin-bottom: 15px; border-radius:20px; background-color: white;">
 <form action="{% url 'forum:new-topic' forum.slug %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}

@@ -169,7 +169,7 @@ class Post(models.Model):
     tags = TaggableManager(verbose_name="Tags", help_text="A comma-separated list of tags.", through=None, blank=False)
     is_paid = models.BooleanField(default=False)
     #user_typ = models.ForeignKey(Activation, limit_choices_to={'is_paid': True}, on_delete=models.CASCADE)
-    is_locked = models.BooleanField(default=False)
+    # is_locked = models.BooleanField(default=False)
 
     flags = GenericRelation(Flag)
     votes = GenericRelation(Vote)

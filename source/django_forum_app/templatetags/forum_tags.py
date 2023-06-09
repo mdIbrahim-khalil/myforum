@@ -5,6 +5,7 @@ import timeago
 import datetime
 import django_forum_app.models
 from django.conf import settings as conf_settings
+from collections import Counter
 
 register = template.Library()
 
@@ -51,3 +52,11 @@ def get_popular_forums():
 @register.filter
 def subtract(value, arg):
     return value - arg
+
+@register.filter
+def top_3_tag(posts):
+    all_tags = [tag for post in posts for tag in post.tags.all()]
+    counter = Counter(all_tags)
+    top_3 = counter.most_common(3)
+    print(top_3)
+    return [item[0] for item in top_3]

@@ -4,12 +4,12 @@
 
 {% block content %}
 <!-- Threads  -->
-<div class="post" style="border: 1px solid grey; padding:25px; box-shadow: 10px 10px 10px rgba(0,0,0,0.4); margin-bottom: 15px; border-radius:20px; background-color: white;">
+<div class="post" >
 <div>
 <span style="font-size: large; font-weight: bold;"> Search results for "{{keyword}}" </span>
 </div>
-<div id="list">
-<table border="0" cellpadding="4" width="100%" class="table table-striped custab">
+<div id="list" style="overflow-x: auto; width: 100%;">
+<table border="0" cellpadding="2" style="font-size: 12px;" class="table table-striped custab">
     
     {% if topics %}
     <tr>

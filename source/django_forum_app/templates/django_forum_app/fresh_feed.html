@@ -14,24 +14,23 @@
         <!-- Paid posts -->
         {% if not is_paid_user and post.is_paid %}
             <div class="post"
-                        style=" padding:20px; box-shadow: 10px 10px 10px rgba(0,0,0,0.4); width: 100%; margin-bottom: 15px; background-color: white;">
+                        style=" padding:20px; width: 100%; margin-bottom: 15px; background-color: white;">
 
                <div style="text-align: center">
-                <h2>This post is for subscribers only</h2>
+                    <h2>This post is for subscribers only</h2>
                     <a href="/accounts/subscription">
-                    <button style="background: #2d82b5;
-                            color: #fff;
-                            border-radius: 10px 10px;
-                            border: #2d82b5;
-                            padding: 10px;">Subscribe</button>
-                </a>
+                        <button style="background: #2d82b5;
+                                color: #fff;
+                                border-radius: 10px 10px;
+                                border: #2d82b5;
+                                padding: 10px;">Subscribe</button>
+                    </a>
                 </div>
             </div>
-
         <!-- Free Posts -->
         {% else %}
             <!-- Full Post Card -->
-            <div class="post" style=" padding:35px; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.103); width: 100%; margin-bottom: 15px; background-color: white;">
+            <div class="post" style=" padding:35px; width: 100%; margin-bottom: 15px; background-color: white;">
 
                 <!-- Top Bar: Forum-title, topic-title -->
                 <div style=" font-size: 12px; color: #41B3C5;">
@@ -143,11 +142,12 @@
                         </span>
 
                         <!-- Comments -->
-                        <span>
-                            <a href="{{post.get_absolute_url}}" style="color: #41B3C5; margin-left: 25px;">
-                                {{ post.get_comments.count }} comment{{ post.get_comments.count|pluralize }}
-                            </a>
-                        </span>
+                        <a href="{{post.get_absolute_url}}" style="display: inline-block; height: 35px; background-color: rgb(224, 230, 230); border-radius: 15px; padding: 5px 10px; margin-bottom: 20px; color: #010101;">
+                            <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                            </svg>
+                            <span margin-left: 15px;>{{ post.get_comments.count }}</span>
+                        </a>
 
                         <!-- Delete Button -->
                         <span style="color: #41B3C5; margin-left: 20px;">
@@ -163,9 +163,9 @@
                         <span style="display: inline-block; height: 45px; background-color: rgb(224, 230, 230); border-radius: 25px; padding: 5px 10px; margin-bottom: 20px;">
                             <!-- Upvote Button -->
                             {% if request.user.id in post.upvoted_users %}
-                                <button type="button" class="btn btn-info upvote" data-object_id={{post.id}} data-object_type="post">
+                                <button type="button" class="btn btn-info upvote" data-object_id={{post.id}} data-object_type="post" >
                                     <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 317.98 363.05"><defs><style>.cls-1{fill:#010101;}</style></defs><title>Asset 1</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M161.11,0a41.77,41.77,0,0,1,7.14,6.2L313.86,151.6c2.39,2.38,4.71,4.8,4,8.54-.83,4.29-4,6.42-9.24,6.43q-34.62,0-69.25,0c-3,0-5.93.22-8.87-.06s-3.57.87-3.18,3.39a15,15,0,0,1,0,2.12q0,90.21,0,180.41c0,2.56.27,5.16-1.48,7.46-2,2.67-4.74,3.17-7.84,3.16q-46.87,0-93.76,0-11.9,0-23.79,0c-6.76,0-9.6-2.86-9.6-9.73q0-46.95,0-93.92c0-29.65-.06-59.31.09-89,0-3.37-1-3.93-4.08-3.91-25.69.12-51.37.06-77.06.07a11.06,11.06,0,0,1-6.15-1.27,7.32,7.32,0,0,1-2.55-10.14,18.89,18.89,0,0,1,3-3.5Q77.72,77.85,151.46,4.08c1.46-1.46,3.11-2.73,4.68-4.08Z"/></g></g></svg>
-                                    <span style="margin-left: 15px; margin-right: 15px;">{{post.vote_difference}}</span>
+                                    <span style="margin-left: 15px; margin-right: 15px; ">{{post.vote_difference}}</span>
                                 </button>
                             {% else %}
                                 <button type="button" class="btn btn-outline-info upvote" data-object_id={{post.id}} data-object_type="post">   
@@ -187,11 +187,12 @@
                         </span>
 
                         <!-- Comment Button -->
-                        <span>
-                            <a href="{{post.get_absolute_url}}" style="color: #41B3C5; margin-left: 15px;">
-                                {{ post.get_comments.count }} comment{{ post.get_comments.count|pluralize }}
-                            </a>
-                        </span>
+                        <a href="{{post.get_absolute_url}}" style="display: inline-block; height: 35px; background-color: rgb(224, 230, 230); border-radius: 15px; padding: 5px 10px; margin-bottom: 20px; color: #010101;">
+                            <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                            </svg>
+                            <span margin-left: 15px;>{{ post.get_comments.count }}</span>
+                        </a>
                     {% endif %}
 
                     <div class="confirm-delete-form" style="display: none;">
@@ -212,21 +213,21 @@
 
 <!-- Next/Prev page links  -->
 {% if posts and posts.paginator.num_pages > 1 %}
-    <div class="pagination">
-        <span class="step-links">
-            {% if posts.has_previous %}
-            <a href="?page={{ posts.previous_page_number }}">{% trans 'previous &lt;&lt;' %} </a>
-            {% endif %}
+<div class="pagination">
+    <span class="step-links">
+        {% if posts.has_previous %}
+        <a href="?page={{ posts.previous_page_number }}">{% trans 'previous &lt;&lt;' %} </a>
+        {% endif %}
 
-            <span class="current">
-                &nbsp;{% trans 'Page' %} {{ posts.number }} of {{ posts.paginator.num_pages }}
-            </span>
-
-            {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}"> {% trans '&gt;&gt; next' %}</a>
-            {% endif %}
+        <span class="current">
+            &nbsp;{% trans 'Page' %} {{ posts.number }} of {{ posts.paginator.num_pages }}
         </span>
-    </div>
+
+        {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}"> {% trans '&gt;&gt; next' %}</a>
+        {% endif %}
+    </span>
+</div>
 {% endif %}
 
 {% endblock %}

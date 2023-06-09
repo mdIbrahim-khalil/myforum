@@ -7,17 +7,25 @@
 {% load humanize %}
 {% block content %}
 <!-- Posts  -->
-<div style="margin: 10px; display: flex; justify-content: space-between;">
+<!-- <div style="margin: 10px; display: flex; justify-content: space-between;">
     <span class="ttitle" style="font-size: x-large; float:left; font-weight: bold; ">{{ topic.title | safer }}</span>
     {% if is_admin %}
     <a class="btn btn-primary" style="height: 35px;"
             href="{% url 'forum:reply' forum.slug topic.pk %}">{% trans 'Write Post' %}</a>
     {% endif %}
-</div>
+</div> -->
+
+{% if is_admin %}
+    <div style="margin-left: 90%; margin-bottom: 10px;">
+        <a class="btn btn-primary" style="height: 35px;"
+                href="{% url 'forum:reply' forum.slug topic.pk %}">{% trans 'Write Post' %}</a>
+    </div>
+{% endif %}
+
 <div id="list">
     {% for post in posts %}
     <div class="post"
-        style=" padding:25px; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.089); width: 100%; margin-bottom: 15px; background-color: white;">
+        style=" padding:25px; width: 100%; margin-bottom: 15px; background-color: white;">
         {% if user.is_authenticated %}
         <div>
             {% render_flag_form post user %}
