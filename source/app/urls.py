@@ -12,7 +12,7 @@ urlpatterns = [
     path('', IndexPageView.as_view(), name='index'),
     path('i18n/', include('django.conf.urls.i18n')),
     path('language/', ChangeLanguageView.as_view(), name='change_language'),
-    re_path("auth/", include("allauth.urls")),
+    path("auth/", include("allauth.urls")),
     path('accounts/', include('accounts.urls')),
     path('forum/', include('django_forum_app.urls', namespace='forum')),
     url('avatar/', include('avatar.urls')),
