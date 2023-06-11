@@ -58,8 +58,9 @@ $(document).ready(function () {
 /* ************************end *****************/
 
 function update_votes(upvote_ele, downvote_ele, data ){
-	upvote_ele.find('span').html(data['vote_difference'])
-	// downvote_ele.find('span').html(data['downvotes'])
+	// upvote_ele.find('span').html(data['upvotes'] - data['downvotes'])
+	upvote_ele.next().html(data['upvotes'] - data['downvotes']);
+	console.log(upvote_ele, downvote_ele, data)
 
 	if (data['user_has_upvoted']){
 		if (upvote_ele.hasClass("btn-outline-info")){
@@ -89,7 +90,7 @@ function update_votes(upvote_ele, downvote_ele, data ){
 
 $(document).on('click', '.upvote', function () {
 	// var vote_defferece_ele = $(this).siblings('span')
-	console.log($(this).data('object_type'))
+	console.log("Hello: ", $(this).data('object_type'))
 	var upvote_ele = $(this);
 	var downvote_ele = $(this).parent().find(".downvote")
 	if(upvote_ele.hasClass("btn-outline-info")){

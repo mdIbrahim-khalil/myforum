@@ -308,6 +308,10 @@ class Comment(models.Model):
             return False
     is_flagged = property(_is_flagged)
 
+    def _vote_difference(self):
+        return self._get_up_votes() - self._get_down_votes()
+    vote_difference = property(_vote_difference)
+
     def __str__(self):
         raw_html = self.text
         cleantext = BeautifulSoup(raw_html, "lxml").text

@@ -303,7 +303,6 @@ def vote_object(request):
         user_has_downvoted = (True if request.user.id in obj.downvoted_users else False)
         response_data =  {'upvotes' : obj.upvotes ,
                             'downvotes': obj.downvotes,
-                            'vote_difference': obj.vote_difference,
                             'user_has_upvoted':user_has_upvoted,
                             'user_has_downvoted':user_has_downvoted}
         
