@@ -99,12 +99,12 @@ def fresh_feed(request):
     # else:
     #     posts = Post.objects.filter(is_paid=False)
     #     print("unpaid user")
-
+    # print(f"{len(posts)} posts")
     paginator = Paginator(posts, PAGE_SIZE)
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
-    posts = [i for i in posts if i.upvotes < conf_settings.FEED_MIN_UPVOTES]
-
+    # posts = [i for i in posts if i.upvotes < conf_settings.FEED_MIN_UPVOTES]
+    # print(f"{len(posts)} posts")
     #user = User.objects.get(activation__id=activation_id, is_paid=True)
     return render(request, "django_forum_app/fresh_feed.html", {'posts':posts, 'is_paid_user':is_user_paid})
 def add_csrf(request, ** kwargs):

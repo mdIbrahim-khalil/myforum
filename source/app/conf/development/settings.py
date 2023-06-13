@@ -7,13 +7,14 @@ from django.utils.translation import ugettext_lazy as _
 
 warnings.simplefilter('error', DeprecationWarning)
 
+
 BASE_DIR = dirname(dirname(dirname(dirname(os.path.abspath(__file__)))))
 CONTENT_DIR = os.path.join(BASE_DIR, 'content')
 
-SECRET_KEY = 'NhfTvayqggTBPswCXXhWaN69HuglgZIkM'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', os.getenv('SERVER_URL')]
 
 SITE_ID = 1
 
@@ -42,7 +43,6 @@ INSTALLED_APPS = [
     # Vendor apps
     'bootstrap4',
     'taggit',
-    'django_toggle_switch_widget',
 
     # Application apps
     'main',
@@ -101,15 +101,19 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         'APP': {
-#             'client_id': 'your_client_id',
-#             'secret': 'your_client_secret',
-#             'key': ''
-#         }
-#     }
-# }
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'APP': {
+            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
+            'secret': os.getenv('GOOGLE_CLIENT_SECRET'),
+            'key': ''
+        }
+    }
+}
 
 ROOT_URLCONF = 'app.urls'
 
@@ -151,9 +155,9 @@ DEFAULT_FROM_EMAIL = 'test@example.com'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'social_app_db',
-        'USER': 'root',
-        'PASSWORD': '01858692m!K',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': 3306,
     }

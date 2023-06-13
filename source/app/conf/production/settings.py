@@ -8,10 +8,10 @@ warnings.simplefilter('error', DeprecationWarning)
 BASE_DIR = dirname(dirname(dirname(dirname(os.path.abspath(__file__)))))
 CONTENT_DIR = os.path.join(BASE_DIR, 'content')
 
-SECRET_KEY = 'NhfTvayqggTBPswCXXhWaN69HuglgZIkM'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = False
-ALLOWED_HOSTS = ['localhost', os.getenv('SERVER_URL'), 'sharefuzz.com']
+ALLOWED_HOSTS = ['127.0.0.1', os.getenv('SERVER_URL'), 'sharefuzz.com', 'localhost']
 SITE_ID = 1
 
 CACHES = {
@@ -28,10 +28,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    
+    'django.contrib.humanize',
+
+    # google auth
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
 
     # Vendor apps
     'bootstrap4',
+    'taggit',
 
     # Application apps
     'main',
@@ -68,9 +75,10 @@ TINYMCE_DEFAULT_CONFIG = {
     'media_dimensions': False,
 }
 
-RECAPTCHA_PUBLIC_KEY = '6LfUsO8ZAAAAAEDxnuVr9DY-m5lwrqrsRGAjUN_0'
-RECAPTCHA_PRIVATE_KEY = '6LfUsO8ZAAAAAOlrm4k80dZBqv0BGjJE7KiGpx7G'
-
+# RECAPTCHA_PUBLIC_KEY = '6LfUsO8ZAAAAAEDxnuVr9DY-m5lwrqrsRGAjUN_0'
+# RECAPTCHA_PRIVATE_KEY = '6LfUsO8ZAAAAAOlrm4k80dZBqv0BGjJE7KiGpx7G'
+RECAPTCHA_PUBLIC_KEY = '6LeZd9kZAAAAAOkzaVVfV4qAhr7p2HwFUlhLQc4w'
+RECAPTCHA_PRIVATE_KEY = '6LeZd9kZAAAAANpAdxal24uWdqXK_EGZNsVG2Xp2'
 
 
 MIDDLEWARE = [
@@ -85,6 +93,25 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'APP': {
+            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
+            'secret': os.getenv('GOOGLE_CLIENT_SECRET'),
+            'key': ''
+        }
+    }
+}
 
 ROOT_URLCONF = 'app.urls'
 
@@ -124,9 +151,9 @@ DEFAULT_FROM_EMAIL = 'contact@sharefuzz.com'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'social_app_db',
-        'USER': 'root',
-        'PASSWORD': os.getenv('SQL_DB_PASS'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
