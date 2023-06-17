@@ -129,25 +129,27 @@
                     {% if request.user == post.creator %}
                     <div style="display: flex; flex-direction: row;">
                         <!-- Up-Down Button Group -->
-                        <span style="display: inline-block; height: 55px; background-color: rgb(224, 230, 230); border-radius: 30px; padding: 10px 20px; margin-bottom: 20px;">
-                            <span style=" margin-left: 10px;">
-                                <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 8H15.1716L10 2.82843L4.82843 8H8V16H12V8ZM14 18H6V10H0L10 0L20 10H14V18Z"></path></g></svg>
+                         <span class="up-down-btn-group">
+                            <span class="btn">
+                                <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 8H15.1716L10 2.82843L4.82843 8H8V16H12V8ZM14 18H6V10H0L10 0L20 10H14V18Z"></path></g></svg>
                             </span>
                             <span style="margin-left: 8px; margin-right: 8px;">{{ post.vote_difference }}</span>
-                            <span style=" margin-left: 15px; margin-right: 10px;">
-                                    <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 10H15.1716L10 15.1716L4.82843 10H8V2H12V10ZM14 0H6V8H0L10 18L20 8H14V0Z"></path></g></svg>
+                            <span class="btn">
+                                    <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 10H15.1716L10 15.1716L4.82843 10H8V2H12V10ZM14 0H6V8H0L10 18L20 8H14V0Z"></path></g></svg>
                             </span>
                         </span>
 
                         <!-- Comments -->
-                        <a href="{{post.get_absolute_url}}" style="display: inline-block; height: 55px;  background-color: rgb(224, 230, 230); border-radius: 30px; padding: 17px 20px 5px; margin-left: 20px; margin-bottom: 20px; color: #010101;">
-                            <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" role="presentation" data-v-e9db3ad8=""><g fill="#999999" data-v-e9db3ad8=""><path d="M6.3 18C6.06131 18 5.83239 17.9052 5.6636 17.7364C5.49482 17.5676 5.4 17.3387 5.4 17.1V14.4H1.8C1.32261 14.4 0.864773 14.2104 0.527208 13.8728C0.189642 13.5352 0 13.0774 0 12.6V1.8C0 0.801 0.81 0 1.8 0H16.2C16.6774 0 17.1352 0.189642 17.4728 0.527208C17.8104 0.864773 18 1.32261 18 1.8V12.6C18 13.0774 17.8104 13.5352 17.4728 13.8728C17.1352 14.2104 16.6774 14.4 16.2 14.4H10.71L7.38 17.739C7.2 17.91 6.975 18 6.75 18H6.3ZM7.2 12.6V15.372L9.972 12.6H16.2V1.8H1.8V12.6H7.2Z"></path></g></svg>
-                            <span style="margin-left: 10px;">{{ post.get_comments.count }}</span>
-                        </a>
+                        <div class="comment-btn">
+                            <a href="{{post.get_absolute_url}}" class="btn btn-outline-info">
+                                <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" role="presentation" data-v-e9db3ad8=""><g fill="#999999" data-v-e9db3ad8=""><path d="M6.3 18C6.06131 18 5.83239 17.9052 5.6636 17.7364C5.49482 17.5676 5.4 17.3387 5.4 17.1V14.4H1.8C1.32261 14.4 0.864773 14.2104 0.527208 13.8728C0.189642 13.5352 0 13.0774 0 12.6V1.8C0 0.801 0.81 0 1.8 0H16.2C16.6774 0 17.1352 0.189642 17.4728 0.527208C17.8104 0.864773 18 1.32261 18 1.8V12.6C18 13.0774 17.8104 13.5352 17.4728 13.8728C17.1352 14.2104 16.6774 14.4 16.2 14.4H10.71L7.38 17.739C7.2 17.91 6.975 18 6.75 18H6.3ZM7.2 12.6V15.372L9.972 12.6H16.2V1.8H1.8V12.6H7.2Z"></path></g></svg>
+                            </a>
+                            <span style="margin-left: 3px;">{{ post.get_comments.count }}</span>
+                        </div>
 
                         <!-- Delete Button -->
-                        <span style="color: #41B3C5; padding: 17px 20px 5px; margin-left: 20px; margin-bottom: 20px;">
-                            <svg class="delete-post" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-trash"
+                        <span style="color: #41B3C5; padding: 12px 10px 5px; margin-left: 15px; margin-bottom: 15px;">
+                            <svg class="delete-post" width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash"
                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
@@ -158,36 +160,38 @@
                     </div>
                     {% else %}
                     <div style="display: flex; flex-direction: row;">
-                        <span style="display: inline-block; height: 55px; background-color: rgb(224, 230, 230); border-radius: 30px; padding: 10px 20px; margin-bottom: 20px;">
+                        <span class="up-down-btn-group">
                             <!-- Upvote Button -->
                             {% if request.user.id in post.upvoted_users %}
                                 <button type="button" class="btn btn-info upvote" data-object_id={{post.id}} data-object_type="post" >
-                                    <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 8H15.1716L10 2.82843L4.82843 8H8V16H12V8ZM14 18H6V10H0L10 0L20 10H14V18Z"></path></g></svg>
+                                    <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 8H15.1716L10 2.82843L4.82843 8H8V16H12V8ZM14 18H6V10H0L10 0L20 10H14V18Z"></path></g></svg>
                                 </button>
                             {% else %}
                                 <button type="button" class="btn btn-outline-info upvote" data-object_id={{post.id}} data-object_type="post">   
-                                    <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 8H15.1716L10 2.82843L4.82843 8H8V16H12V8ZM14 18H6V10H0L10 0L20 10H14V18Z"></path></g></svg>
+                                    <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 8H15.1716L10 2.82843L4.82843 8H8V16H12V8ZM14 18H6V10H0L10 0L20 10H14V18Z"></path></g></svg>
                                 </button>
                             {% endif %}
                             <span style="margin-left: 8px; margin-right: 8px;">{{ post.vote_difference }}</span>
                             <!-- Downvote Button -->
                             {% if request.user.id in post.downvoted_users %}
                                 <button type="button" class="btn btn-info downvote" data-object_id={{post.id}} data-object_type="post">
-                                    <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 10H15.1716L10 15.1716L4.82843 10H8V2H12V10ZM14 0H6V8H0L10 18L20 8H14V0Z"></path></g></svg>
+                                    <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 10H15.1716L10 15.1716L4.82843 10H8V2H12V10ZM14 0H6V8H0L10 18L20 8H14V0Z"></path></g></svg>
                                 </button>
                             {% else %}
                                 <button type="button" class="btn btn-outline-info downvote" data-object_id={{post.id}}
                                     data-object_type="post">
-                                    <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 10H15.1716L10 15.1716L4.82843 10H8V2H12V10ZM14 0H6V8H0L10 18L20 8H14V0Z"></path></g></svg>
+                                    <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 10H15.1716L10 15.1716L4.82843 10H8V2H12V10ZM14 0H6V8H0L10 18L20 8H14V0Z"></path></g></svg>
                                 </button>
                             {% endif %}
                         </span>
 
                         <!-- Comment Button -->
-                        <a href="{{post.get_absolute_url}}" style="display: inline-block; height: 55px;  background-color: rgb(224, 230, 230); border-radius: 30px; padding: 17px 20px 5px; margin-left: 20px; margin-bottom: 20px; color: #010101;">
-                            <svg width="1.5em" height="1.5em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" role="presentation" data-v-e9db3ad8=""><g fill="#999999" data-v-e9db3ad8=""><path d="M6.3 18C6.06131 18 5.83239 17.9052 5.6636 17.7364C5.49482 17.5676 5.4 17.3387 5.4 17.1V14.4H1.8C1.32261 14.4 0.864773 14.2104 0.527208 13.8728C0.189642 13.5352 0 13.0774 0 12.6V1.8C0 0.801 0.81 0 1.8 0H16.2C16.6774 0 17.1352 0.189642 17.4728 0.527208C17.8104 0.864773 18 1.32261 18 1.8V12.6C18 13.0774 17.8104 13.5352 17.4728 13.8728C17.1352 14.2104 16.6774 14.4 16.2 14.4H10.71L7.38 17.739C7.2 17.91 6.975 18 6.75 18H6.3ZM7.2 12.6V15.372L9.972 12.6H16.2V1.8H1.8V12.6H7.2Z"></path></g></svg>
-                            <span style="margin-left: 10px;">{{ post.get_comments.count }}</span>
-                        </a>
+                        <div class="comment-btn">
+                            <a href="{{post.get_absolute_url}}" class="btn btn-outline-info">
+                                <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" role="presentation" data-v-e9db3ad8=""><g fill="#999999" data-v-e9db3ad8=""><path d="M6.3 18C6.06131 18 5.83239 17.9052 5.6636 17.7364C5.49482 17.5676 5.4 17.3387 5.4 17.1V14.4H1.8C1.32261 14.4 0.864773 14.2104 0.527208 13.8728C0.189642 13.5352 0 13.0774 0 12.6V1.8C0 0.801 0.81 0 1.8 0H16.2C16.6774 0 17.1352 0.189642 17.4728 0.527208C17.8104 0.864773 18 1.32261 18 1.8V12.6C18 13.0774 17.8104 13.5352 17.4728 13.8728C17.1352 14.2104 16.6774 14.4 16.2 14.4H10.71L7.38 17.739C7.2 17.91 6.975 18 6.75 18H6.3ZM7.2 12.6V15.372L9.972 12.6H16.2V1.8H1.8V12.6H7.2Z"></path></g></svg>
+                            </a>
+                            <span style="margin-left: 3px;">{{ post.get_comments.count }}</span>
+                        </div>
                     </div>
                         
                     {% endif %}

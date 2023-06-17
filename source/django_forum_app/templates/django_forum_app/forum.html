@@ -34,7 +34,7 @@ Please make sure your topic is relevant to the Forum.
     <tr>
         <th>{% trans 'Topics' %}</th>
         <th style= "padding-left: 40px;">{% trans 'Posts' %}</th>
-        <th>{% trans 'Tags' %}</th>
+        <th style="padding-left: 50px;">{% trans 'Tags' %}</th>
     </tr>
 
     {% for topic in topics %}
@@ -43,7 +43,7 @@ Please make sure your topic is relevant to the Forum.
             <div class="title"> <a href="{% url 'forum:topic-detail' forum.slug topic.pk %}">{{ topic.title }}</a>
             </div>
         </td>
-        <td style= "padding-left: 40px;">
+        <td {% if forloop.last %}class="last"{% endif %} style= "padding-left: 40px;">
             {{ topic.num_posts }}
             <!-- <ul style="margin-left: 0px; padding-left: 0px;">
                 {% for post in topic.post_set.all %}
@@ -51,12 +51,10 @@ Please make sure your topic is relevant to the Forum.
                 {% endfor %}
             </ul> -->
         </td>
-        <td>
-            <ul style="margin-left: 0px; padding-left: 0px;">
-                {% for tag in topic.post_set.all|top_3_tag %}
-                    <li style="margin-left: 0px;">{{ tag }}</li>
-                {% endfor %}
-            </ul>
+        <td {% if forloop.last %}class="last"{% endif %}>
+            {% for tag in topic.post_set.all|top_3_tag %}
+                <span class="btn btn-sm" style="background-color: rgb(224, 230, 230); border-radius: 15px; padding: 5px 10px; margin-bottom: 20px;">{{tag.name}}</span>
+            {% endfor %}
         </td>
             
         <!-- <td {% if forloop.last %}class="last"{% endif %}>{{ topic.num_replies }}</td> -->

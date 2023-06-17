@@ -175,3 +175,11 @@ outline: none !important;
   object-fit: contain;
   
   }
+
+.up-down-btn-group{
+  display: inline-block; height: 45px; background-color: rgb(224, 230, 230); border-radius: 25px; padding: 6px 10px; margin-bottom: 15px;
+}
+
+.comment-btn{
+  display: inline-block; height: 45px;  background-color: rgb(224, 230, 230); border-radius: 25px; padding: 6px 10px; margin-left: 15px; margin-bottom: 15px; color: #010101;
+}

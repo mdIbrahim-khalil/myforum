@@ -325,12 +325,9 @@ def view_notificatoins(request):
 def post_detail(request, forum_slug, topic_id, pk):
     print("here")
     post = Post.objects.get(pk=pk)
-    if post.is_paid and Activation.is_paid_user(request.user):
-        post.body = post.body
-        print("paid user view")
-    else:
+    if post.is_paid and not Activation.is_paid_user(request.user):
         print("unpaid user view")
-        post.body = "Paid Post"
+        post.body = "Paid Post" 
 
     form = CommentForm()
     comments = post.get_comments()
