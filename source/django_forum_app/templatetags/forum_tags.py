@@ -30,7 +30,8 @@ def check_seen(obj, user):
 
 @register.filter()
 def safer(text):
-    return mark_safe(bleach.clean(text, tags=_ALLOWED_TAGS, attributes=_ALLOWED_ATTRIBUTES))
+    safer_txt = mark_safe(bleach.clean(text, tags=_ALLOWED_TAGS, attributes=_ALLOWED_ATTRIBUTES))
+    return safer_txt
 
 @register.filter()
 def safer_with_span(text):

@@ -148,7 +148,7 @@ outline: none !important;
 }
 
 #bs-example-navbar-collapse-1{
-  margin: 2px;
+  margin: 0px;
 }
 
 .navbar.bg-dark .dropdown-menu .a{
@@ -177,9 +177,13 @@ outline: none !important;
   }
 
 .up-down-btn-group{
-  display: inline-block; height: 45px; background-color: rgb(224, 230, 230); border-radius: 25px; padding: 6px 10px; margin-bottom: 15px;
+  display: inline-block; height: 45px; background-color: rgb(224, 230, 230); border-radius: 25px; padding: 6px 5px; margin-bottom: 15px;
 }
 
 .comment-btn{
-  display: inline-block; height: 45px;  background-color: rgb(224, 230, 230); border-radius: 25px; padding: 6px 10px; margin-left: 15px; margin-bottom: 15px; color: #010101;
+  display: inline-block; height: 45px;  background-color: rgb(224, 230, 230); border-radius: 25px; padding: 6px 3px; margin-left: 15px; margin-bottom: 15px; color: #010101;
+}
+
+.btn-sm{
+  margin: 3px 3px;
 }
