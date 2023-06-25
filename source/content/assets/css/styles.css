@@ -177,13 +177,43 @@ outline: none !important;
   }
 
 .up-down-btn-group{
-  display: inline-block; height: 45px; background-color: rgb(224, 230, 230); border-radius: 25px; padding: 6px 5px; margin-bottom: 15px;
+  display: inline-block; height: 35px; background-color: rgb(224, 230, 230); border-radius: 20px; padding: 4px 3px; margin-bottom: 10px;
 }
 
 .comment-btn{
-  display: inline-block; height: 45px;  background-color: rgb(224, 230, 230); border-radius: 25px; padding: 6px 3px; margin-left: 15px; margin-bottom: 15px; color: #010101;
+  display: inline-block; height: 35px;  background-color: rgb(224, 230, 230); border-radius: 20px; padding: 4px 3px; margin-left: 12px; margin-bottom: 10px; color: #010101;
+}
+
+.delete-btn{
+  color: #41B3C5; padding: 5px 8px 10px; margin-left: 10px; margin-bottom: 10px;
 }
 
 .btn-sm{
   margin: 3px 3px;
+}
+
+.btn-xs{
+  margin: 1px 3px;
+}
+
+.post-card{
+  padding:8px; width: 100%; margin-bottom: 10px; background-color: white;
+}
+
+@media (min-width: 640px) {
+  .post-card {
+    padding:35px; width: 100%; margin-bottom: 15px; background-color: white;
+  }
+
+  .up-down-btn-group{
+    display: inline-block; height: 45px; background-color: rgb(224, 230, 230); border-radius: 25px; padding: 6px 5px; margin-bottom: 15px;
+  }
+
+  .comment-btn{
+    display: inline-block; height: 45px;  background-color: rgb(224, 230, 230); border-radius: 25px; padding: 6px 3px; margin-left: 15px; margin-bottom: 15px; color: #010101;
+  }
+
+  .delete-btn{
+    color: #41B3C5; padding: 12px 10px 5px; margin-left: 15px; margin-bottom: 15px;
+  }
 }

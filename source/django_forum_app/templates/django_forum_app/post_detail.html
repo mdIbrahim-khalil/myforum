@@ -39,17 +39,17 @@
             <div style="display: flex; flex-direction: row;">
                 <!-- Up-Down Button Group -->
                  <span class="up-down-btn-group">
-                    <span class="btn btn-sm">
+                    <span class="btn btn-sm btn-xs">
                         <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 8H15.1716L10 2.82843L4.82843 8H8V16H12V8ZM14 18H6V10H0L10 0L20 10H14V18Z"></path></g></svg>
                     </span>
                     <span style="margin-left: 8px; margin-right: 8px;">{{ post.vote_difference }}</span>
-                    <span class="btn btn-sm">
+                    <span class="btn btn-sm btn-xs">
                             <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 10H15.1716L10 15.1716L4.82843 10H8V2H12V10ZM14 0H6V8H0L10 18L20 8H14V0Z"></path></g></svg>
                     </span>
                 </span>
 
                 <!-- Delete Button -->
-                <span style="color: #41B3C5; padding: 12px 10px 5px; margin-left: 15px; margin-bottom: 15px;">
+                <span class="delete-btn">
                     <svg class="delete-post" width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash"
                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -64,22 +64,22 @@
             <span class="up-down-btn-group">
                 <!-- Upvote Button -->
                 {% if request.user.id in post.upvoted_users %}
-                    <button type="button" class="btn btn-sm btn-info upvote" data-object_id={{post.id}} data-object_type="post" >
+                    <button type="button" class="btn btn-sm btn-xs btn-info upvote" data-object_id={{post.id}} data-object_type="post" >
                         <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 8H15.1716L10 2.82843L4.82843 8H8V16H12V8ZM14 18H6V10H0L10 0L20 10H14V18Z"></path></g></svg>
                     </button>
                 {% else %}
-                    <button type="button" class="btn btn-sm btn-outline-info upvote" data-object_id={{post.id}} data-object_type="post">   
+                    <button type="button" class="btn btn-sm btn-xs btn-outline-info upvote" data-object_id={{post.id}} data-object_type="post">   
                         <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 8H15.1716L10 2.82843L4.82843 8H8V16H12V8ZM14 18H6V10H0L10 0L20 10H14V18Z"></path></g></svg>
                     </button>
                 {% endif %}
                 <span class="pt-1">{{ post.vote_difference }}</span>
                 <!-- Downvote Button -->
                 {% if request.user.id in post.downvoted_users %}
-                    <button type="button" class="btn btn-sm btn-info downvote" data-object_id={{post.id}} data-object_type="post">
+                    <button type="button" class="btn btn-sm btn-xs btn-info downvote" data-object_id={{post.id}} data-object_type="post">
                         <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 10H15.1716L10 15.1716L4.82843 10H8V2H12V10ZM14 0H6V8H0L10 18L20 8H14V0Z"></path></g></svg>
                     </button>
                 {% else %}
-                    <button type="button" class="btn btn-sm btn-outline-info downvote" data-object_id={{post.id}}
+                    <button type="button" class="btn btn-sm btn-xs btn-outline-info downvote" data-object_id={{post.id}}
                         data-object_type="post">
                         <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 10H15.1716L10 15.1716L4.82843 10H8V2H12V10ZM14 0H6V8H0L10 18L20 8H14V0Z"></path></g></svg>
                     </button>
@@ -92,7 +92,7 @@
                 <form action="{% url 'django_forum_app:delete-post' forum_slug=post.topic.forum.slug topic_id=post.topic.id pk=post.id %}" method="POST" style="margin:15px">
                     {% csrf_token %}
                     <p>Are you sure you want to delete this post?
-                    <button type="submit" class="btn btn-sm btn-danger" style="margin-left:5px">Delete</button>
+                    <button type="submit" class="btn btn-sm btn-xs btn-danger" style="margin-left:5px">Delete</button>
                     </p>
                 </form>
             </div>
@@ -159,7 +159,7 @@
                     </svg>
                     </span>
                     <!-- Delete Button -->
-                    <span style="color: #41B3C5; margin-left: 20px;">
+                    <span class="delete-btn">
                         <svg class="delete-comment" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash"
                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -192,21 +192,21 @@
 
                 {% if request.user.id in comment.upvoted_users %}
                 <!-- Upvote Button -->
-                <button type="button" class="btn btn-sm btn-info upvote" data-object_id={{comment.id}} data-object_type="comment">
+                <button type="button" class="btn btn-sm btn-xs btn-info upvote" data-object_id={{comment.id}} data-object_type="comment">
                     <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 8H15.1716L10 2.82843L4.82843 8H8V16H12V8ZM14 18H6V10H0L10 0L20 10H14V18Z"></path></g></svg>
                 </button>
                 {% else %}
-                <button type="button" class="btn btn-sm btn-outline-info upvote" data-object_id={{comment.id}} data-object_type="comment">
+                <button type="button" class="btn btn-sm btn-xs btn-outline-info upvote" data-object_id={{comment.id}} data-object_type="comment">
                     <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 8H15.1716L10 2.82843L4.82843 8H8V16H12V8ZM14 18H6V10H0L10 0L20 10H14V18Z"></path></g></svg>
                 </button>
                 {% endif %}
                 <span class="pt-1">{{ comment.vote_difference }}</span>
                 {% if request.user.id in comment.downvoted_users %}
-                <button type="button" class="btn btn-sm btn-info downvote" data-object_id={{comment.id}} data-object_type="comment">
+                <button type="button" class="btn btn-sm btn-xs btn-info downvote" data-object_id={{comment.id}} data-object_type="comment">
                     <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 10H15.1716L10 15.1716L4.82843 10H8V2H12V10ZM14 0H6V8H0L10 18L20 8H14V0Z"></path></g></svg>
                 </button>
                 {% else %}
-                <button type="button" class="btn btn-sm btn-outline-info downvote" data-object_id={{comment.id}} data-object_type="comment">
+                <button type="button" class="btn btn-sm btn-xs btn-outline-info downvote" data-object_id={{comment.id}} data-object_type="comment">
                     <svg width="1.2em" height="1.2em" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 18" role="presentation" data-v-e9db3ad8=""><g fill="" data-v-e9db3ad8=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12 10H15.1716L10 15.1716L4.82843 10H8V2H12V10ZM14 0H6V8H0L10 18L20 8H14V0Z"></path></g></svg>
                 </button>
                 {% endif %}
